@@ -3,14 +3,15 @@
     <div class="auth__container">
       <h1 class="auth__title">Sign up</h1>
       <form class="auth__form">
-        <label>
-          <input type="text" name="email" placeholder="Your email address" />
+        <label class="auth__lable">
+          <input type="text" name="email" class="auth__input" placeholder="Your email address" />
         </label>
-        <label>
-          <input type="text" name="email" placeholder="Password" />
+        <label class="auth__lable">
+          <input type="text" name="email" class="auth__input" placeholder="Password" />
         </label>
-        <button>Signup</button>
+        <button class="auth__button">Signup</button>
       </form>
+      <a @click="$router.push('/')" class="auth__link">Go to register</a>
     </div>
   </div>
 </template>
@@ -25,7 +26,7 @@ export default {}
   min-height: 400px;
   width: 100%;
   background-color: #fff;
-  margin: auto;
+  margin: 50px auto 0;
   border-radius: 16px;
 }
 .auth__container {
@@ -37,10 +38,55 @@ export default {}
   width: 100%;
   margin: auto;
 }
+.auth__title {
+  margin: 50px 0 50px;
+  color: #545454;
+}
 .auth__form {
+  width: 100%;
   min-height: 250px;
+  margin: 30px auto 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
+}
+.auth__lable {
+  width: 100%;
+}
+.auth__input {
+  box-sizing: border-box;
+  display: flex;
+  height: 50px;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 0 15px;
+  border: none;
+  outline: 1px solid #d9d9d9;
+  border-radius: 20px;
+  color: #838383;
+}
+.auth__input::placeholder {
+  color: #838383;
+}
+.auth__button {
+  margin: 20px 0 0;
+  padding: 0;
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: 1px solid #d9d9d9;
+  border-radius: 20px;
+  background-color: #fe8c2c;
+  color: #fefbf8;
+}
+.auth__link {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 80px;
+  cursor: pointer;
+  color: #39c6d2;
+  text-decoration: underline;
 }
 </style>
