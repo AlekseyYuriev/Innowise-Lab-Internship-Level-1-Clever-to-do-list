@@ -38,6 +38,7 @@ export default {
   background-color: #fff;
   margin: 50px auto 0;
   border-radius: 16px;
+  box-shadow: 0 20px 40px #525354;
 }
 .auth__container {
   max-width: 300px;

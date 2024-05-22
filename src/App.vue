@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="page">
     <div class="navbar">
       <button @click="$router.push('/')">HomePage</button>
       <button @click="$router.push('/about')">MainPage</button>
@@ -16,13 +16,13 @@ export default {}
 <style>
 @import './assets/normalize.css';
 
-.wrapper {
-  background-color: #e8e8ea;
+.page {
+  min-height: 100vh;
   min-width: 320px;
-  text-align: center;
   width: 100%;
-  height: 100vh;
   margin: 0 auto;
+  padding: 70px 0 100px 0;
+  background-color: #e8e8ea;
   font-family: 'Inter', Helvetica, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -33,8 +33,8 @@ export default {}
 }
 
 .navbar {
-  padding-top: 30px;
   margin: 0 auto;
+  padding-bottom: 50px;
   max-width: 762px;
   display: flex;
   justify-content: space-around;
