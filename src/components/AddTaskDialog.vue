@@ -4,15 +4,14 @@
       <form @click.prevent class="dialog__form">
         <label class="dialog__lable">
           <input
-            v-model="searchText"
+            v-model.trim="task.body"
             type="text"
             name="task-body"
             class="dialog__input"
             placeholder="Enter a Task To Do..."
           />
         </label>
-        <p>{{ searchText }}</p>
-        <button class="dialog__button">+ Add a New Task</button>
+        <button @click="addTask" class="dialog__button">+ Add a New Task</button>
       </form>
     </div>
   </div>
@@ -20,10 +19,29 @@
 
 <script>
 export default {
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
-      show: true,
-      searchText: ''
+      task: {
+        body: ''
+      }
+    }
+  },
+  methods: {
+    addTask() {
+      this.task.id = Date.now()
+      this.$emit('create', this.task)
+      this.task = {
+        body: ''
+      }
+    },
+    hideDialog() {
+      this.$emit('update:show', false)
     }
   }
 }

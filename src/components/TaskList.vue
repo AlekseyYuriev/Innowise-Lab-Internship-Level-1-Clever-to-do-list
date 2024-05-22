@@ -1,5 +1,4 @@
 <template>
-  <AddTaskDialog />
   <div class="tasks">
     <div class="tasks__header">
       <h1 class="tasks__title">Tassker</h1>
@@ -13,8 +12,9 @@
         </div>
       </div>
     </div>
-    <button class="tasks__button">+ Add a New Task</button>
+    <button @click="showDialog" class="tasks__button">+ Add a New Task</button>
   </div>
+  <AddTaskDialog @create="addTask" v-model:show="dialogVisible" />
 </template>
 
 <script>
@@ -32,7 +32,17 @@ export default {
         { id: 4, body: 'Create Vue project' },
         { id: 5, body: 'Repeat deep copying of Objects' },
         { id: 6, body: 'Learn algorithms' }
-      ]
+      ],
+      dialogVisible: false
+    }
+  },
+  methods: {
+    addTask(task) {
+      this.tasks.push(task)
+      this.dialogVisible = false
+    },
+    showDialog() {
+      this.dialogVisible = true
     }
   }
 }
@@ -113,11 +123,14 @@ export default {
   background-color: #ff8a34;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
 }
+.task__checkbox:checked + .task__body {
+  text-decoration: line-through;
+}
 .task__checkbox:not(:disabled):not(:checked) + .task__body:hover::before {
   border-color: #88dce4;
 }
 .task__checkbox:not(:disabled):active + .task__body::before {
-  background-color: #88dce4;
+  background-color: #ffd0ad;
   border-color: #88dce4;
 }
 .task__checkbox:focus + .task__body::before {
