@@ -18,7 +18,20 @@
 
 <script>
 export default {
-  props: ['title', 'buttonText', 'linkText'],
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    buttonText: {
+      type: String,
+      required: true
+    },
+    linkText: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
     handleRoute() {
       if (this.$route.fullPath === '/signin') {

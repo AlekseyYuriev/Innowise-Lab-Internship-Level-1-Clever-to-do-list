@@ -11,7 +11,9 @@
             placeholder="Enter a Task To Do..."
           />
         </label>
-        <button @click="addTask" class="dialog__button">+ Add a New Task</button>
+        <button :disabled="validateInput" @click="addTask" class="dialog__button">
+          + Add a New Task
+        </button>
       </form>
     </div>
   </div>
@@ -29,7 +31,16 @@ export default {
     return {
       task: {
         body: ''
+      },
+      validInput: true
+    }
+  },
+  computed: {
+    validateInput() {
+      if (this.task.body === '') {
+        return this.validInput
       }
+      return !this.validInput
     }
   },
   methods: {
@@ -108,11 +119,15 @@ export default {
     opacity 0.3s,
     transform 0.2s;
 }
-.dialog__button:hover {
+.dialog__button:not(:disabled):hover {
   opacity: 0.8;
   transform: scale(101%);
 }
-.dialog__button:active {
+.dialog__button:not(:disabled):active {
   transform: scale(98%);
+}
+.dialog__button:disabled {
+  cursor: not-allowed;
+  background-color: #cbcbcb;
 }
 </style>
