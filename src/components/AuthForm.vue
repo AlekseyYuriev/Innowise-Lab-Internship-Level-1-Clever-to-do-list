@@ -1,7 +1,7 @@
 <template>
   <div class="auth">
     <div class="auth__container">
-      <h1 class="auth__title">Sign up</h1>
+      <h1 class="auth__title">{{ title }}</h1>
       <form class="auth__form">
         <label class="auth__lable">
           <input type="text" name="email" class="auth__input" placeholder="Your email address" />
@@ -9,15 +9,25 @@
         <label class="auth__lable">
           <input type="text" name="email" class="auth__input" placeholder="Password" />
         </label>
-        <button class="auth__button">Signup</button>
+        <button class="auth__button">{{ buttonText }}</button>
       </form>
-      <a @click="$router.push('/')" class="auth__link">Go to register</a>
+      <router-link :to="handleRoute" class="auth__link">{{ linkText }}</router-link>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: ['title', 'buttonText', 'linkText'],
+  computed: {
+    handleRoute() {
+      if (this.$route.fullPath === '/signin') {
+        return '/signup'
+      }
+      return '/signin'
+    }
+  }
+}
 </script>
 
 <style scoped>

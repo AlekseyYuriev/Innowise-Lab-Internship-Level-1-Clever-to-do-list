@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <div>
+    <div class="navbar">
       <button @click="$router.push('/')">HomePage</button>
       <button @click="$router.push('/about')">MainPage</button>
-      <button @click="$router.push('/signup')">SignUp</button>
+      <button @click="$router.push('/signup')">Register</button>
     </div>
     <router-view></router-view>
   </div>
@@ -30,5 +30,13 @@ export default {}
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+}
+
+.navbar {
+  padding-top: 30px;
+  margin: 0 auto;
+  max-width: 762px;
+  display: flex;
+  justify-content: space-around;
 }
 </style>
