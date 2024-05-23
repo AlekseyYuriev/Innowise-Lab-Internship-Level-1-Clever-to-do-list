@@ -4,7 +4,6 @@
       type="checkbox"
       class="task__checkbox"
       :id="task.id"
-      @click="$router.push('/tasks/:id')"
       :status="task.status"
       :checked="task.status"
     />
