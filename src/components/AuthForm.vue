@@ -11,7 +11,7 @@
         </label>
         <button class="auth__button">{{ buttonText }}</button>
       </form>
-      <router-link :to="handleRoute || '/signup'" class="auth__link">{{ linkText }}</router-link>
+      <router-link :to="handleRoute || '/register'" class="auth__link">{{ linkText }}</router-link>
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
   computed: {
     handleRoute() {
       if (this.$route.fullPath === '/signin') {
-        return '/signup'
+        return '/register'
       }
       return '/signin'
     }
