@@ -2,7 +2,6 @@
   <div class="page">
     <div class="navbar">
       <button @click="$router.push('/')">HomePage</button>
-      <button @click="$router.push('/about')">MainPage</button>
       <button @click="$router.push('/signup')">Register</button>
     </div>
     <router-view></router-view>

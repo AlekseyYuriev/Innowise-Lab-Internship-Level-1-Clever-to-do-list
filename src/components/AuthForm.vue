@@ -11,7 +11,7 @@
         </label>
         <button class="auth__button">{{ buttonText }}</button>
       </form>
-      <router-link :to="handleRoute" class="auth__link">{{ linkText }}</router-link>
+      <router-link :to="handleRoute || '/signup'" class="auth__link">{{ linkText }}</router-link>
     </div>
   </div>
 </template>
