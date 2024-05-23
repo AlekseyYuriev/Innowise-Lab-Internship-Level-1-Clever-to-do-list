@@ -9,6 +9,7 @@
         <div class="tasks__item" v-for="task in tasks" :key="task.id">
           <input type="checkbox" class="task__checkbox" :id="task.id" />
           <label :for="task.id" class="task__body">{{ task.body }}</label>
+          <button @click="deleteTask(task)" class="task__delete-button"></button>
         </div>
       </div>
     </div>
@@ -43,6 +44,9 @@ export default {
     },
     showDialog() {
       this.dialogVisible = true
+    },
+    deleteTask(task) {
+      this.tasks = this.tasks.filter((t) => t.id !== task.id)
     }
   }
 }
@@ -76,7 +80,7 @@ export default {
 .tasks__container {
   max-width: 702px;
   margin: 0;
-  padding-left: 50px;
+  padding: 0 50px 0 50px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -89,6 +93,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
 }
 .tasks__item {
   display: flex;
@@ -142,6 +147,19 @@ export default {
 .task__checkbox:disabled + .task__body::before {
   background-color: #e9ecef;
   border-color: #afe8ed;
+}
+.task__delete-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 19px;
+  height: 19px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCI+CjxwYXRoIGQ9Ik0gMjEgMCBDIDE5LjM1NDU0NSAwIDE4IDEuMzU0NTQ1NSAxOCAzIEwgMTggNSBMIDEwLjE1NjI1IDUgQSAxLjAwMDEgMS4wMDAxIDAgMCAwIDkuODM3ODkwNiA1IEwgOCA1IEEgMS4wMDAxIDEuMDAwMSAwIDEgMCA4IDcgTCA5LjA4NTkzNzUgNyBMIDEyLjcwNTA3OCA0Ny41IEwgMTIuNzA3MDMxIDQ3LjUwOTc2NiBDIDEyLjg1NzI2MiA0OC44NjIyMzIgMTMuOTgxODcyIDUwIDE1LjQwMDM5MSA1MCBMIDM0LjU5OTYwOSA1MCBDIDM2LjAxODEyOCA1MCAzNy4xNDI2OTEgNDguODYyMjY2IDM3LjI5Mjk2OSA0Ny41MDk3NjYgTCAzNy4yOTQ5MjIgNDcuNSBMIDQwLjkxNDA2MiA3IEwgNDIgNyBBIDEuMDAwMSAxLjAwMDEgMCAxIDAgNDIgNSBMIDQwLjE3MzgyOCA1IEEgMS4wMDAxIDEuMDAwMSAwIDAgMCAzOS44NDE3OTcgNSBMIDMyIDUgTCAzMiAzIEMgMzIgMS4zNTQ1NDU1IDMwLjY0NTQ1NSAwIDI5IDAgTCAyMSAwIHogTSAyMSAyIEwgMjkgMiBDIDI5LjU1NDU0NSAyIDMwIDIuNDQ1NDU0NSAzMCAzIEwgMzAgNSBMIDIwIDUgTCAyMCAzIEMgMjAgMi40NDU0NTQ1IDIwLjQ0NTQ1NSAyIDIxIDIgeiBNIDExLjA5Mzc1IDcgTCAxOC44MzIwMzEgNyBBIDEuMDAwMSAxLjAwMDEgMCAwIDAgMTkuMTU4MjAzIDcgTCAzMC44MzIwMzEgNyBBIDEuMDAwMSAxLjAwMDEgMCAwIDAgMzEuMTU4MjAzIDcgTCAzOC45MDYyNSA3IEwgMzUuMzA2NjQxIDQ3LjI4OTA2MiBDIDM1LjI1NjkxOCA0Ny43MzY1NjMgMzQuOTgxMDkxIDQ4IDM0LjU5OTYwOSA0OCBMIDE1LjQwMDM5MSA0OCBDIDE1LjAxODkwOSA0OCAxNC43NDMwODIgNDcuNzM2NTYzIDE0LjY5MzM1OSA0Ny4yODkwNjIgTCAxMS4wOTM3NSA3IHogTSAxOC45ODQzNzUgOS45ODYzMjgxIEEgMS4wMDAxIDEuMDAwMSAwIDAgMCAxOCAxMSBMIDE4IDQ0IEEgMS4wMDAxIDEuMDAwMSAwIDEgMCAyMCA0NCBMIDIwIDExIEEgMS4wMDAxIDEuMDAwMSAwIDAgMCAxOC45ODQzNzUgOS45ODYzMjgxIHogTSAyNC45ODQzNzUgOS45ODYzMjgxIEEgMS4wMDAxIDEuMDAwMSAwIDAgMCAyNCAxMSBMIDI0IDQ0IEEgMS4wMDAxIDEuMDAwMSAwIDEgMCAyNiA0NCBMIDI2IDExIEEgMS4wMDAxIDEuMDAwMSAwIDAgMCAyNC45ODQzNzUgOS45ODYzMjgxIHogTSAzMC45ODQzNzUgOS45ODYzMjgxIEEgMS4wMDAxIDEuMDAwMSAwIDAgMCAzMCAxMSBMIDMwIDQ0IEEgMS4wMDAxIDEuMDAwMSAwIDEgMCAzMiA0NCBMIDMyIDExIEEgMS4wMDAxIDEuMDAwMSAwIDAgMCAzMC45ODQzNzUgOS45ODYzMjgxIHoiPjwvcGF0aD4KPC9zdmc+');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: transparent;
+  cursor: pointer;
 }
 .tasks__button {
   margin: 20px auto;

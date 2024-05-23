@@ -37,10 +37,7 @@ export default {
   },
   computed: {
     validateInput() {
-      if (this.task.body === '') {
-        return this.validInput
-      }
-      return !this.validInput
+      return this.task.body === '' ? this.validInput : !this.validInput
     }
   },
   methods: {
@@ -53,6 +50,9 @@ export default {
     },
     hideDialog() {
       this.$emit('update:show', false)
+      this.task = {
+        body: ''
+      }
     }
   }
 }

@@ -21,7 +21,7 @@ export default {}
   min-width: 320px;
   width: 100%;
   margin: 0 auto;
-  padding: 70px 0 100px 0;
+  padding: 30px 0 30px 0;
   background-color: #e8e8ea;
   font-family: 'Inter', Helvetica, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
