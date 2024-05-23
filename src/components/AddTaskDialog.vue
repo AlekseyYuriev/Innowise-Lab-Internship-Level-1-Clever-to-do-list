@@ -4,11 +4,20 @@
       <form @click.prevent class="dialog__form">
         <label class="dialog__lable">
           <input
-            v-model.trim="task.body"
+            v-model.trim="task.title"
             type="text"
-            name="task-body"
+            name="task-title"
             class="dialog__input"
-            placeholder="Enter a Task To Do..."
+            placeholder="Enter Task Title"
+          />
+        </label>
+        <label class="dialog__lable">
+          <input
+            v-model.trim="task.description"
+            type="text"
+            name="task-description"
+            class="dialog__input"
+            placeholder="Enter Task Description"
           />
         </label>
         <button :disabled="validateInput" @click="addTask" class="dialog__button">
@@ -30,7 +39,8 @@ export default {
   data() {
     return {
       task: {
-        body: '',
+        title: '',
+        description: '',
         status: false
       },
       validInput: true
@@ -38,7 +48,7 @@ export default {
   },
   computed: {
     validateInput() {
-      return this.task.body === '' ? this.validInput : !this.validInput
+      return this.task.title === '' ? this.validInput : !this.validInput
     }
   },
   methods: {
@@ -46,13 +56,15 @@ export default {
       this.task.id = Date.now()
       this.$emit('create', this.task)
       this.task = {
-        body: ''
+        title: '',
+        description: ''
       }
     },
     hideDialog() {
       this.$emit('update:show', false)
       this.task = {
-        body: ''
+        title: '',
+        description: ''
       }
     }
   }
@@ -94,7 +106,7 @@ export default {
   display: flex;
   height: 50px;
   width: 100%;
-  margin: 0;
+  margin: 0 0 20px;
   padding: 0 0 0 15px;
   border: none;
   outline: 1px solid #d9d9d9;
@@ -105,7 +117,7 @@ export default {
   color: #838383;
 }
 .dialog__button {
-  margin: 20px auto;
+  margin: 0 auto 20px;
   padding: 0;
   max-width: 300px;
   width: 100%;

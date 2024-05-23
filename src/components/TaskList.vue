@@ -20,7 +20,7 @@
             :status="task.status"
             :checked="task.status"
           />
-          <label :for="task.id" class="task__body">{{ task.body }}</label>
+          <label :for="task.id" class="task__title">{{ task.title }}</label>
           <button @click="deleteTask(task)" class="task__delete-button"></button>
         </div>
       </div>
@@ -34,7 +34,7 @@
             :status="task.status"
             :checked="task.status"
           />
-          <label :for="task.id" class="task__body">{{ task.body }}</label>
+          <label :for="task.id" class="task__title">{{ task.title }}</label>
           <button @click="deleteTask(task)" class="task__delete-button"></button>
         </div>
       </div>
@@ -48,7 +48,7 @@
             :status="task.status"
             :checked="task.status"
           />
-          <label :for="task.id" class="task__body">{{ task.body }}</label>
+          <label :for="task.id" class="task__title">{{ task.title }}</label>
           <button @click="deleteTask(task)" class="task__delete-button"></button>
         </div>
       </div>
@@ -67,12 +67,22 @@ export default {
   data() {
     return {
       tasks: [
-        { id: 1, body: 'Create Vue project', status: false },
-        { id: 2, body: 'Repeat deep copying of Objects', status: false },
-        { id: 3, body: 'Learn algorithms', status: false },
-        { id: 4, body: 'Create Vue project', status: false },
-        { id: 5, body: 'Repeat deep copying of Objects', status: false },
-        { id: 6, body: 'Learn algorithms', status: false }
+        { id: 1, title: 'Create Vue project', description: 'Create Vue project', status: false },
+        {
+          id: 2,
+          title: 'Repeat deep copying of Objects',
+          description: 'Repeat deep copying of Objects',
+          status: false
+        },
+        { id: 3, title: 'Learn algorithms', description: 'Learn algorithms', status: false },
+        { id: 4, title: 'Create Vue project', description: 'Create Vue project', status: false },
+        {
+          id: 5,
+          title: 'Repeat deep copying of Objects',
+          description: 'Repeat deep copying of Objects',
+          status: false
+        },
+        { id: 6, title: 'Learn algorithms', description: 'Learn algorithms', status: false }
       ],
       dialogVisible: false,
       listToShow: 'all',
@@ -182,12 +192,12 @@ export default {
   z-index: -1;
   opacity: 0;
 }
-.task__checkbox + .task__body {
+.task__checkbox + .task__title {
   display: inline-flex;
   align-items: center;
   user-select: none;
 }
-.task__checkbox + .task__body::before {
+.task__checkbox + .task__title::before {
   content: '';
   display: inline-block;
   width: 1em;
@@ -201,28 +211,28 @@ export default {
   background-position: center center;
   background-size: 50% 50%;
 }
-.task__checkbox:checked + .task__body::before {
+.task__checkbox:checked + .task__title::before {
   border-color: #fffcfb;
   background-color: #ff8a34;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
 }
-.task__checkbox:checked + .task__body {
+.task__checkbox:checked + .task__title {
   text-decoration: line-through;
 }
-.task__checkbox:not(:disabled):not(:checked) + .task__body:hover::before {
+.task__checkbox:not(:disabled):not(:checked) + .task__title:hover::before {
   border-color: #88dce4;
 }
-.task__checkbox:not(:disabled):active + .task__body::before {
+.task__checkbox:not(:disabled):active + .task__title::before {
   background-color: #ffd0ad;
   border-color: #88dce4;
 }
-.task__checkbox:focus + .task__body::before {
+.task__checkbox:focus + .task__title::before {
   box-shadow: 0 0 0 0.2rem rgba(136, 220, 228, 0.5);
 }
-.task__checkbox:focus:not(:checked) + .task__body::before {
+.task__checkbox:focus:not(:checked) + .task__title::before {
   border-color: #80bdff;
 }
-.task__checkbox:disabled + .task__body::before {
+.task__checkbox:disabled + .task__title::before {
   background-color: #e9ecef;
   border-color: #afe8ed;
 }
