@@ -30,7 +30,8 @@ export default {
   data() {
     return {
       task: {
-        body: ''
+        body: '',
+        status: false
       },
       validInput: true
     }
