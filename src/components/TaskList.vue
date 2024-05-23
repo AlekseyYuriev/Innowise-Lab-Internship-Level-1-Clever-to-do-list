@@ -3,43 +3,10 @@
     <div class="tasks__header">
       <h1 class="tasks__title">Tassker</h1>
     </div>
-    <div class="tasks__options">
-      <button @click="listToShow = 'all'" class="tasks__option">All Tasks</button>
-      <button @click="listToShow = 'todo'" class="tasks__option">Tasks Todo</button>
-      <button @click="listToShow = 'done'" class="tasks__option">Done Tasks</button>
-    </div>
     <div class="tasks__container">
       <h3 class="tasks__quantity">5 Tasks Today</h3>
-      <div class="tasks__list" v-if="listToShow === 'all'">
+      <div class="tasks__list">
         <div class="tasks__item" v-for="task in tasks" :key="task.id">
-          <input
-            type="checkbox"
-            class="task__checkbox"
-            :id="task.id"
-            @click="changeStatus(task)"
-            :status="task.status"
-            :checked="task.status"
-          />
-          <label :for="task.id" class="task__title">{{ task.title }}</label>
-          <button @click="deleteTask(task)" class="task__delete-button"></button>
-        </div>
-      </div>
-      <div class="tasks__list" v-else-if="listToShow === 'todo'">
-        <div class="tasks__item" v-for="task in tasksTodo" :key="task.id">
-          <input
-            type="checkbox"
-            class="task__checkbox"
-            :id="task.id"
-            @click="changeStatus(task)"
-            :status="task.status"
-            :checked="task.status"
-          />
-          <label :for="task.id" class="task__title">{{ task.title }}</label>
-          <button @click="deleteTask(task)" class="task__delete-button"></button>
-        </div>
-      </div>
-      <div class="tasks__list" v-else>
-        <div class="tasks__item" v-for="task in doneTasks" :key="task.id">
           <input
             type="checkbox"
             class="task__checkbox"
@@ -85,16 +52,7 @@ export default {
         { id: 6, title: 'Learn algorithms', description: 'Learn algorithms', status: false }
       ],
       dialogVisible: false,
-      listToShow: 'all',
       checkboxStatus: false
-    }
-  },
-  computed: {
-    doneTasks() {
-      return this.tasks.filter((task) => task.status === true)
-    },
-    tasksTodo() {
-      return this.tasks.filter((task) => task.status === false)
     }
   },
   methods: {
@@ -139,31 +97,6 @@ export default {
   margin: 30px 0 0;
   color: #545454;
   font-size: 32px;
-}
-.tasks__options {
-  margin-top: 30px;
-  display: flex;
-  gap: 20px;
-  padding: 0 50px;
-}
-.tasks__option {
-  margin: 0;
-  padding: 0;
-  width: 150px;
-  height: 30px;
-  border: none;
-  background-color: transparent;
-  color: #fe8c2c;
-  outline: 1px solid #fe8c2c;
-  border-radius: 20px;
-  cursor: pointer;
-}
-.tasks__option:hover {
-  opacity: 0.8;
-  transform: scale(101%);
-}
-.tasks__option:active {
-  transform: scale(98%);
 }
 .tasks__container {
   max-width: 702px;

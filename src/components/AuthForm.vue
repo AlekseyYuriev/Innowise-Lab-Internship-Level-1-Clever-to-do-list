@@ -2,7 +2,7 @@
   <div class="auth">
     <div class="auth__container">
       <h1 class="auth__title">{{ title }}</h1>
-      <form class="auth__form">
+      <form @submit.prevent class="auth__form">
         <label class="auth__lable">
           <input type="text" name="email" class="auth__input" placeholder="Your email address" />
         </label>
@@ -103,6 +103,17 @@ export default {
   border-radius: 20px;
   background-color: #fe8c2c;
   color: #fefbf8;
+  cursor: pointer;
+  transition:
+    opacity 0.3s,
+    transform 0.2s;
+}
+.auth__button:hover {
+  opacity: 0.8;
+  transform: scale(101%);
+}
+.auth__button:active {
+  transform: scale(98%);
 }
 .auth__link {
   width: 100%;
