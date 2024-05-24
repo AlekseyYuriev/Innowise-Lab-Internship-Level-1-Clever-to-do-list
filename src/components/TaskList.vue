@@ -10,7 +10,6 @@
           v-for="task in tasks"
           :task="task"
           :key="task.id"
-          @remove="deleteTask"
           @click="$router.push(`/tasks/${task.id}`)"
         />
       </div>
@@ -39,29 +38,23 @@ export default {
   },
   methods: {
     async addTask(task) {
-      // console.log(task.date)
-      // const parsedTimestamp = Date.parse(task.date) / 1000
-      // console.log(parsedTimestamp)
-      // this.tasks.push(task)
-      // this.dialogVisible = false
       await createTask(task)
       this.dialogVisible = false
+      this.tasks = await getAllTasks()
     },
     showDialog() {
       this.dialogVisible = true
-    },
-    deleteTask(task) {
-      this.tasks = this.tasks.filter((t) => t.id !== task.id)
     },
     changeStatus(task) {
       task.status === false ? (task.status = true) : (task.status = false)
     }
   },
   async beforeMount() {
+    console.log('before Mount')
     this.tasks = await getAllTasks()
   },
-  async updated() {
-    this.tasks = await getAllTasks()
+  unmounted() {
+    console.log('unmounted')
   }
 }
 </script>

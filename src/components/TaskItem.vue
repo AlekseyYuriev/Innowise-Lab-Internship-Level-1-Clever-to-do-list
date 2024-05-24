@@ -8,7 +8,6 @@
       :checked="task.status"
     />
     <label :for="task.id" class="task__title">{{ task.title }}</label>
-    <button @click="remove" class="task__delete-button"></button>
   </div>
 </template>
 
@@ -18,11 +17,6 @@ export default {
     task: {
       type: Object,
       required: true
-    }
-  },
-  methods: {
-    remove() {
-      this.$emit('remove', this.task)
     }
   }
 }
