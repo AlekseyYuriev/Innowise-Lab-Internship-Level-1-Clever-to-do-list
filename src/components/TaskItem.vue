@@ -4,8 +4,8 @@
       type="checkbox"
       class="task__checkbox"
       :id="task.id"
-      :status="task.status"
-      :checked="task.status"
+      :status="task.done"
+      :checked="task.done"
     />
     <label :for="task.id" class="task__title">{{ task.title }}</label>
   </div>

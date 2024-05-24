@@ -22,12 +22,23 @@
       <button class="item__delete-button btn" @click="removeTask">
         Delete <span class="btn-icon-delete"></span>
       </button>
+      <button v-if="!task.done" class="item__done-button btn" @click="changeTaskStatusToDone">
+        Done <span class="btn-icon-done"></span>
+      </button>
+      <button v-else class="item__notdone-button btn" @click="changeTaskStatusToNotDone">
+        Not Done <span class="btn-icon-notdone"></span>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { getTaskById, removeTask } from '@/API/api'
+import {
+  changeTaskStatusToDone,
+  changeTaskStatusToNotDone,
+  getTaskById,
+  removeTask
+} from '@/API/api'
 
 export default {
   data() {
@@ -39,6 +50,16 @@ export default {
   methods: {
     async removeTask() {
       await removeTask(this.task)
+      this.$router.push('/')
+    },
+    async changeTaskStatusToDone() {
+      await changeTaskStatusToDone(this.task.id)
+      this.task = await getTaskById(this.id)
+      this.$router.push('/')
+    },
+    async changeTaskStatusToNotDone() {
+      await changeTaskStatusToNotDone(this.task.id)
+      this.task = await getTaskById(this.id)
       this.$router.push('/')
     }
   },
@@ -83,13 +104,16 @@ export default {
 }
 .btn {
   padding: 0;
-  max-width: 200px;
+  max-width: 150px;
   width: 100%;
   height: 50px;
   border: none;
   outline: 1px solid #d9d9d9;
   border-radius: 20px;
-  background-color: #fe8c2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   color: #fefbf8;
   cursor: pointer;
   transition:
@@ -104,17 +128,16 @@ export default {
   transform: scale(98%);
 }
 .item__update-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+  background-color: #fe8c2c;
 }
 .item__delete-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
   background-color: #ff4e50;
+}
+.item__done-button {
+  background-color: #44e48d;
+}
+.item__notdone-button {
+  background-color: #ffd952;
 }
 .btn-icon-update {
   display: inline-block;
@@ -137,6 +160,32 @@ export default {
   width: 24px;
   height: 24px;
   background-image: url('/delete-svg-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: transparent;
+  cursor: pointer;
+}
+.btn-icon-done {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-image: url('/done-svg-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: transparent;
+  cursor: pointer;
+}
+.btn-icon-notdone {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 15px;
+  height: 15px;
+  background-image: url('/cross-svg-icon.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

@@ -1,5 +1,5 @@
 import { db } from '@/firebase'
-import { collection, getDocs, doc, getDoc, addDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getDocs, doc, getDoc, addDoc, deleteDoc, updateDoc } from 'firebase/firestore'
 
 export const getTaskById = async (id) => {
   const docRef = doc(db, 'todos', id)
@@ -42,4 +42,20 @@ export const createTask = async (task) => {
 
 export const removeTask = async (task) => {
   await deleteDoc(doc(db, 'todos', task.id))
+}
+
+export const changeTaskStatusToDone = async (id) => {
+  const updatedTask = doc(db, 'todos', id)
+
+  await updateDoc(updatedTask, {
+    done: true
+  })
+}
+
+export const changeTaskStatusToNotDone = async (id) => {
+  const updatedTask = doc(db, 'todos', id)
+
+  await updateDoc(updatedTask, {
+    done: false
+  })
 }

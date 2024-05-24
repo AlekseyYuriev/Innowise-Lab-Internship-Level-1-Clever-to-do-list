@@ -110,6 +110,7 @@ export default {
   right: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
   position: fixed;
   display: flex;
 }
