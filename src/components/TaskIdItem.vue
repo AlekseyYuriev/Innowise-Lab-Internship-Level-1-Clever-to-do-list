@@ -1,34 +1,39 @@
 <template>
   <div class="wrapper">
-    <div class="item">
-      <h1 class="item__title">Task: {{ task.title }}</h1>
-    </div>
-    <div class="item__content">
-      <div>
-        <p class="item__subtitle">Description:</p>
-        <p>{{ task.description }}</p>
+    <div v-if="this.task" class="wrapper__item">
+      <div class="item">
+        <h1 class="item__title">Task: {{ task.title }}</h1>
       </div>
-      <div>
-        <p class="item__status">Status:</p>
-        <p>{{ task.done ? 'Done' : 'Not done' }}</p>
+      <div class="item__content">
+        <div>
+          <p class="item__subtitle">Description:</p>
+          <p>{{ task.description }}</p>
+        </div>
+        <div>
+          <p class="item__status">Status:</p>
+          <p>{{ task.done ? 'Done' : 'Not done' }}</p>
+        </div>
+        <div>
+          <p class="item__date">Date:</p>
+          <p>{{ task.date }}</p>
+        </div>
       </div>
-      <div>
-        <p class="item__date">Date:</p>
-        <p>{{ task.date }}</p>
+      <div class="item__buttons">
+        <button class="item__update-button btn">
+          Update <span class="btn-icon-update"></span>
+        </button>
+        <button class="item__delete-button btn" @click="removeTask">
+          Delete <span class="btn-icon-delete"></span>
+        </button>
+        <button v-if="!task.done" class="item__done-button btn" @click="changeTaskStatusToDone">
+          Done <span class="btn-icon-done"></span>
+        </button>
+        <button v-else class="item__notdone-button btn" @click="changeTaskStatusToNotDone">
+          Not Done <span class="btn-icon-notdone"></span>
+        </button>
       </div>
     </div>
-    <div class="item__buttons">
-      <button class="item__update-button btn">Update <span class="btn-icon-update"></span></button>
-      <button class="item__delete-button btn" @click="removeTask">
-        Delete <span class="btn-icon-delete"></span>
-      </button>
-      <button v-if="!task.done" class="item__done-button btn" @click="changeTaskStatusToDone">
-        Done <span class="btn-icon-done"></span>
-      </button>
-      <button v-else class="item__notdone-button btn" @click="changeTaskStatusToNotDone">
-        Not Done <span class="btn-icon-notdone"></span>
-      </button>
-    </div>
+    <PageLoader v-else class="loader"></PageLoader>
   </div>
 </template>
 
@@ -44,7 +49,7 @@ export default {
   data() {
     return {
       id: this.$route.params['id'],
-      task: {}
+      task: null
     }
   },
   methods: {
@@ -81,8 +86,13 @@ export default {
   box-shadow: 0 20px 40px #525354;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
+}
+.wrapper__item {
+  max-width: 700px;
+  width: 100%;
 }
 .item {
   border-bottom: 1px solid #dcdcdc;

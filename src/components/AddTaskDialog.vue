@@ -109,7 +109,7 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(220, 220, 220, 0.5);
   backdrop-filter: blur(5px);
   position: fixed;
   display: flex;
@@ -122,6 +122,7 @@ export default {
   min-height: 50px;
   min-width: 300px;
   padding: 20px;
+  outline: 1px solid #a8a9a9;
 }
 .dialog__form {
   width: 100%;
@@ -142,7 +143,7 @@ export default {
   margin: 0 0 20px;
   padding: 0 0 0 15px;
   border: none;
-  outline: 1px solid #d9d9d9;
+  outline: 1px solid #a8a9a9;
   border-radius: 20px;
   color: #545454;
 }
@@ -177,7 +178,7 @@ export default {
   width: 100%;
   height: 50px;
   border: none;
-  outline: 1px solid #d9d9d9;
+  outline: 1px solid #a8a9a9;
   border-radius: 20px;
   background-color: #fe8c2c;
   color: #fefbf8;

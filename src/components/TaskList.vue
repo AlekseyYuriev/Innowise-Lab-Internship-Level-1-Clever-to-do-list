@@ -1,22 +1,25 @@
 <template>
   <div class="tasks">
-    <div class="tasks__header">
-      <h1 class="tasks__title">Tassker</h1>
-    </div>
-    <div class="tasks__container">
-      <h3 class="tasks__quantity">5 Tasks Today</h3>
-      <div class="tasks__list">
-        <task-item
-          v-for="task in tasks"
-          :task="task"
-          :key="task.id"
-          @click="$router.push(`/tasks/${task.id}`)"
-        />
+    <div v-if="this.tasks.length > 0" class="tasks__content">
+      <div class="tasks__header">
+        <h1 class="tasks__title">Tassker</h1>
       </div>
+      <div class="tasks__container">
+        <h3 class="tasks__quantity">5 Tasks Today</h3>
+        <div class="tasks__list">
+          <task-item
+            v-for="task in tasks"
+            :task="task"
+            :key="task.id"
+            @click="$router.push(`/tasks/${task.id}`)"
+          />
+        </div>
+      </div>
+      <button @click="showDialog" class="tasks__button">+ Add a New Task</button>
     </div>
-    <button @click="showDialog" class="tasks__button">+ Add a New Task</button>
+    <PageLoader v-else />
+    <AddTaskDialog @create="addTask" v-model:show="dialogVisible" />
   </div>
-  <AddTaskDialog @create="addTask" v-model:show="dialogVisible" />
 </template>
 
 <script>
@@ -70,24 +73,29 @@ export default {
   box-shadow: 0 20px 40px #525354;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+}
+.tasks__content {
+  max-width: 762px;
+  width: 100%;
+  padding: 50px;
+  box-sizing: border-box;
 }
 .tasks__header {
   max-width: 702px;
-  padding-left: 50px;
   margin: 0;
   display: flex;
   justify-content: space-between;
 }
 .tasks__title {
-  margin: 30px 0 0;
+  margin: 0;
   color: #545454;
   font-size: 32px;
 }
 .tasks__container {
   max-width: 702px;
   margin: 0;
-  padding: 0 50px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -103,7 +111,7 @@ export default {
   width: 100%;
 }
 .tasks__button {
-  margin: 20px auto;
+  margin-top: 30px;
   padding: 0;
   max-width: 300px;
   width: 100%;
