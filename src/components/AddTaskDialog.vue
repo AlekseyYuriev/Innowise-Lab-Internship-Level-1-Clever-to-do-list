@@ -1,7 +1,7 @@
 <template>
   <div class="dialog" v-if="show" @click="hideDialog">
     <div @click.stop class="dialog__content">
-      <form @click.prevent class="dialog__form">
+      <form @submit.prevent="addTask" class="dialog__form">
         <label class="dialog__lable">
           <input
             v-model.trim="task.title"
@@ -20,7 +20,18 @@
             placeholder="Enter Task Description"
           />
         </label>
-        <button :disabled="validateInput" @click="addTask" class="dialog__button">
+        <label class="dialog__lable">
+          <input
+            v-model="task.date"
+            :style="{ color: activeColor ? '#545454' : '' }"
+            type="date"
+            name="task-date"
+            min="2024-01-01"
+            max="2025-12-31"
+            class="dialog__input input__date"
+          />
+        </label>
+        <button :disabled="validateInput" type="submit" class="dialog__button">
           + Add a New Task
         </button>
       </form>
@@ -41,31 +52,52 @@ export default {
       task: {
         title: '',
         description: '',
-        status: false
+        date: new Date().toISOString().split('T')[0],
+        done: false
       },
-      validInput: true
+      validInput: true,
+      activeColor: false,
+      currentDate: new Date().toISOString().split('T')[0]
     }
   },
   computed: {
     validateInput() {
-      return this.task.title === '' ? this.validInput : !this.validInput
+      return this.task.title === '' || this.task.description === ''
+        ? this.validInput
+        : !this.validInput
     }
   },
   methods: {
     addTask() {
-      this.task.id = Date.now()
+      console.log(this.task.date)
       this.$emit('create', this.task)
       this.task = {
         title: '',
-        description: ''
+        description: '',
+        date: new Date().toISOString().split('T')[0],
+        done: false
       }
+      this.activeColor = false
     },
     hideDialog() {
       this.$emit('update:show', false)
       this.task = {
         title: '',
-        description: ''
+        description: '',
+        date: new Date().toISOString().split('T')[0],
+        done: false
       }
+      this.activeColor = false
+    }
+  },
+  watch: {
+    task: {
+      handler(newValue) {
+        if (newValue.date !== this.currentDate) {
+          this.activeColor = true
+        }
+      },
+      deep: true
     }
   }
 }
@@ -115,6 +147,27 @@ export default {
 }
 .dialog__input::placeholder {
   color: #838383;
+}
+.input__date {
+  color: #838383;
+}
+.input__date {
+  position: relative;
+}
+.input__date::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+.input__date::-webkit-inner-spin-button,
+.input__date::-webkit-clear-button {
+  z-index: 1;
 }
 .dialog__button {
   margin: 0 auto 20px;

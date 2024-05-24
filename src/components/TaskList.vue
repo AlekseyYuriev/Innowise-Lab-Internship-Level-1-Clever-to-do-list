@@ -21,10 +21,9 @@
 </template>
 
 <script>
+import { getAllTasks } from '@/API/api'
 import AddTaskDialog from '../components/AddTaskDialog.vue'
 import TaskItem from '../components/TaskItem.vue'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '@/firebase'
 
 export default {
   components: {
@@ -33,31 +32,14 @@ export default {
   },
   data() {
     return {
-      tasks: [
-        // { id: 1, title: 'Create Vue project', description: 'Create Vue project', status: false },
-        // {
-        //   id: 2,
-        //   title: 'Repeat deep copying of Objects',
-        //   description: 'Repeat deep copying of Objects',
-        //   done: false
-        //   date
-        // },
-        // { id: 3, title: 'Learn algorithms', description: 'Learn algorithms', status: false },
-        // { id: 4, title: 'Create Vue project', description: 'Create Vue project', status: false },
-        // {
-        //   id: 5,
-        //   title: 'Repeat deep copying of Objects',
-        //   description: 'Repeat deep copying of Objects',
-        //   status: false
-        // },
-        // { id: 6, title: 'Learn algorithms', description: 'Learn algorithms', status: false }
-      ],
+      tasks: [],
       dialogVisible: false,
       checkboxStatus: false
     }
   },
   methods: {
     addTask(task) {
+      console.log(task)
       this.tasks.push(task)
       this.dialogVisible = false
     },
@@ -72,16 +54,7 @@ export default {
     }
   },
   async mounted() {
-    const querySnapshot = await getDocs(collection(db, 'todos'))
-    querySnapshot.forEach((doc) => {
-      this.tasks.push({
-        id: doc.id,
-        title: doc.data().title,
-        description: doc.data().description,
-        done: doc.data().done,
-        date: doc.data().date.toDate().toISOString().split('T')[0].split('-').reverse().join('-')
-      })
-    })
+    this.tasks = await getAllTasks()
   }
 }
 </script>
