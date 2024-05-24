@@ -1,5 +1,5 @@
 import { db } from '@/firebase'
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
+import { collection, getDocs, doc, getDoc, addDoc } from 'firebase/firestore'
 
 export const getTaskById = async (id) => {
   const docRef = doc(db, 'todos', id)
@@ -32,4 +32,10 @@ export const getAllTasks = async () => {
     })
   })
   return tasks
+}
+
+export const createTask = async (task) => {
+  task.date = new Date(task.date)
+  const docRef = await addDoc(collection(db, 'todos'), task)
+  console.log('Document written with ID: ', docRef.id)
 }

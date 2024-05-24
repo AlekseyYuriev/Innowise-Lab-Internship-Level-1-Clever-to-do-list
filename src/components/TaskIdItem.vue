@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
 .wrapper {
-  padding: 30px;
+  padding: 50px;
   max-width: 762px;
   min-height: 400px;
   width: 100%;
@@ -53,10 +53,12 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 .item {
   border-bottom: 1px solid #dcdcdc;
   padding-bottom: 20px;
+  max-width: 702px;
 }
 .item__title {
   margin: 0;
@@ -64,6 +66,7 @@ export default {
 }
 .item__content {
   max-width: 600px;
+  padding-bottom: 20px;
 }
 .item__buttons {
   display: flex;
@@ -112,7 +115,7 @@ export default {
   border: none;
   width: 20px;
   height: 20px;
-  background-image: url('/public/update-svg-icon.svg');
+  background-image: url('/update-svg-icon.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

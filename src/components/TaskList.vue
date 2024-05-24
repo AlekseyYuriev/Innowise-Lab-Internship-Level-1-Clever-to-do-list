@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { getAllTasks } from '@/API/api'
+import { createTask, getAllTasks } from '@/API/api'
 import AddTaskDialog from '../components/AddTaskDialog.vue'
 import TaskItem from '../components/TaskItem.vue'
 
@@ -38,9 +38,13 @@ export default {
     }
   },
   methods: {
-    addTask(task) {
-      console.log(task)
-      this.tasks.push(task)
+    async addTask(task) {
+      // console.log(task.date)
+      // const parsedTimestamp = Date.parse(task.date) / 1000
+      // console.log(parsedTimestamp)
+      // this.tasks.push(task)
+      // this.dialogVisible = false
+      await createTask(task)
       this.dialogVisible = false
     },
     showDialog() {
@@ -53,7 +57,10 @@ export default {
       task.status === false ? (task.status = true) : (task.status = false)
     }
   },
-  async mounted() {
+  async beforeMount() {
+    this.tasks = await getAllTasks()
+  },
+  async updated() {
     this.tasks = await getAllTasks()
   }
 }

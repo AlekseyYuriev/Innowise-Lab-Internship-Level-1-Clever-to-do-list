@@ -26,7 +26,7 @@
             :style="{ color: activeColor ? '#545454' : '' }"
             type="date"
             name="task-date"
-            min="2024-01-01"
+            :min="currentDate"
             max="2025-12-31"
             class="dialog__input input__date"
           />
