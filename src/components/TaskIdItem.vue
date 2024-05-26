@@ -2,20 +2,30 @@
   <div class="wrapper">
     <div v-if="this.task" class="wrapper__item">
       <div class="item">
-        <h1 class="item__title">Task: {{ task.title }}</h1>
+        <h1 class="item__header">Task</h1>
       </div>
       <div class="item__content">
         <div>
-          <p class="item__subtitle">Description:</p>
-          <p>{{ task.description }}</p>
+          <lable class="item__lable"
+            >Task title:
+            <input type="text" class="item__input item__input-title" />
+          </lable>
         </div>
         <div>
-          <p class="item__status">Status:</p>
-          <p>{{ task.done ? 'Done' : 'Not done' }}</p>
+          <lable class="item__lable"
+            >Description:
+            <textarea
+              class="item__input item__input-description"
+              contenteditable="true"
+              rows="6"
+            ></textarea>
+          </lable>
         </div>
         <div>
-          <p class="item__date">Date:</p>
-          <p>{{ task.date }}</p>
+          <lable class="item__lable"
+            >Date:
+            <input type="date" class="item__input item__input-date" />
+          </lable>
         </div>
       </div>
       <div class="item__buttons">
@@ -49,7 +59,8 @@ export default {
   data() {
     return {
       id: this.$route.params['id'],
-      task: null
+      task: null,
+      updateDialogVisible: false
     }
   },
   methods: {
@@ -99,13 +110,53 @@ export default {
   padding-bottom: 20px;
   max-width: 702px;
 }
-.item__title {
+.item__header {
   margin: 0;
   font-size: 32px;
 }
 .item__content {
-  max-width: 600px;
-  padding-bottom: 20px;
+  max-width: 500px;
+  padding: 20px 0;
+}
+.item__lable {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.item__input {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 15px;
+  border: none;
+  outline: 1px solid #a8a9a9;
+  border-radius: 20px;
+  color: #545454;
+}
+.item__input-title {
+  height: 35px;
+}
+.item__input-date {
+  color: #838383;
+}
+.item__input-date {
+  position: relative;
+}
+.item__input-date::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+.item__input-date::-webkit-inner-spin-button,
+.item__input-date::-webkit-clear-button {
+  z-index: 1;
 }
 .item__buttons {
   display: flex;
