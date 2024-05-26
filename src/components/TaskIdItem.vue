@@ -4,46 +4,63 @@
       <div class="item">
         <h1 class="item__header">Task</h1>
       </div>
-      <div class="item__content">
-        <div>
-          <lable class="item__lable"
-            >Task title:
-            <input type="text" class="item__input item__input-title" />
-          </lable>
-        </div>
-        <div>
-          <lable class="item__lable"
-            >Description:
-            <textarea
-              class="item__input item__input-description"
-              contenteditable="true"
-              rows="6"
-            ></textarea>
-          </lable>
-        </div>
-        <div>
-          <lable class="item__lable"
-            >Date:
-            <input type="date" class="item__input item__input-date" />
-          </lable>
-        </div>
-      </div>
+      <form class="item__content">
+        <label class="item__lable"
+          >Task title:
+          <input
+            v-model.trim="title"
+            type="text"
+            name="title"
+            class="item__input item__input-title"
+          />
+        </label>
+
+        <label class="item__lable"
+          >Description:
+          <textarea
+            v-model.trim="description"
+            class="item__input item__input-description"
+            name="description"
+            rows="6"
+          ></textarea>
+        </label>
+
+        <label class="item__lable"
+          >Date:
+          <input v-model="date" type="date" name="status" class="item__input item__input-date" />
+        </label>
+      </form>
       <div class="item__buttons">
-        <button class="item__update-button btn">
+        <button
+          :disabled="handleUpdateTask"
+          @click="updateTask"
+          type="button"
+          class="item__update-button btn"
+        >
           Update <span class="btn-icon-update"></span>
         </button>
-        <button class="item__delete-button btn" @click="removeTask">
+        <button type="button" class="item__delete-button btn" @click="removeTask">
           Delete <span class="btn-icon-delete"></span>
         </button>
-        <button v-if="!task.done" class="item__done-button btn" @click="changeTaskStatusToDone">
+        <button
+          v-if="!this.task.done"
+          type="button"
+          class="item__done-button btn"
+          @click="changeTaskStatusToDone"
+        >
           Done <span class="btn-icon-done"></span>
         </button>
-        <button v-else class="item__notdone-button btn" @click="changeTaskStatusToNotDone">
+        <button
+          v-else
+          type="button"
+          class="item__notdone-button btn"
+          @click="changeTaskStatusToNotDone"
+        >
           Not Done <span class="btn-icon-notdone"></span>
         </button>
       </div>
     </div>
-    <PageLoader v-else class="loader"></PageLoader>
+    <page-loader v-else class="loader"></page-loader>
   </div>
 </template>
 
@@ -52,7 +69,8 @@ import {
   changeTaskStatusToDone,
   changeTaskStatusToNotDone,
   getTaskById,
-  removeTask
+  removeTask,
+  updateTask
 } from '@/API/api'
 
 export default {
@@ -60,7 +78,10 @@ export default {
     return {
       id: this.$route.params['id'],
       task: null,
-      updateDialogVisible: false
+      title: '',
+      description: '',
+      date: '',
+      isTaskUpdated: false
     }
   },
   methods: {
@@ -76,11 +97,35 @@ export default {
     async changeTaskStatusToNotDone() {
       await changeTaskStatusToNotDone(this.task.id)
       this.task = await getTaskById(this.id)
-      this.$router.push('/')
+    },
+    async updateTask() {
+      const updatedTask = {
+        id: this.task.id,
+        title: this.title,
+        description: this.description,
+        date: this.date
+      }
+      await updateTask(updatedTask)
+      this.task = await getTaskById(this.id)
     }
   },
   async mounted() {
     this.task = await getTaskById(this.id)
+    this.title = this.task.title
+    this.description = this.task.description
+    this.date = this.task.date.split('-').reverse().join('-')
+  },
+  computed: {
+    handleUpdateTask() {
+      if (
+        this.title !== this.task.title ||
+        this.description !== this.task.description ||
+        this.date !== this.task.date.split('-').reverse().join('-')
+      ) {
+        return this.isTaskUpdated
+      }
+      return !this.isTaskUpdated
+    }
   }
 }
 </script>
@@ -138,9 +183,6 @@ export default {
   height: 35px;
 }
 .item__input-date {
-  color: #838383;
-}
-.item__input-date {
   position: relative;
 }
 .item__input-date::-webkit-calendar-picker-indicator {
@@ -181,12 +223,16 @@ export default {
     opacity 0.3s,
     transform 0.2s;
 }
-.btn:hover {
+.btn:not(:disabled):hover {
   opacity: 0.8;
   transform: scale(101%);
 }
-.btn:active {
+.btn:not(:disabled):active {
   transform: scale(98%);
+}
+.btn:disabled {
+  cursor: not-allowed;
+  background-color: #cbcbcb;
 }
 .item__update-button {
   background-color: #fe8c2c;

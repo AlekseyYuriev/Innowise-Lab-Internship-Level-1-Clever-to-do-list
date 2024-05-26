@@ -59,3 +59,13 @@ export const changeTaskStatusToNotDone = async (id) => {
     done: false
   })
 }
+
+export const updateTask = async (task) => {
+  const updatedTask = doc(db, 'todos', task.id)
+
+  await updateDoc(updatedTask, {
+    title: task.title,
+    description: task.description,
+    date: new Date(task.date)
+  })
+}
