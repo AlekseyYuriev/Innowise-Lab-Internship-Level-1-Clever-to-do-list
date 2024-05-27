@@ -1,12 +1,12 @@
 <template>
-  <TaskItem v-if="authIsReady" />
+  <TaskIdItem v-if="authIsReady" />
 </template>
 
 <script>
-import TaskItem from '../components/TaskItem.vue'
+import TaskIdItem from '@/components/TaskIdItem.vue'
 export default {
   components: {
-    TaskItem
+    TaskIdItem
   },
   computed: {
     authIsReady() {

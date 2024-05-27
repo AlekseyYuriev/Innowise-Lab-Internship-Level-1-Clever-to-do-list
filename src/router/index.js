@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TaskIdItem from '../components/TaskIdItem.vue'
 // import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const router = createRouter({
@@ -14,7 +13,7 @@ const router = createRouter({
       component: () => import('../views/SignIn.vue')
     },
     {
-      path: '/tasks',
+      path: '/',
       component: () => import('../views/MainPage.vue')
       // meta: {
       //   requiresAuth: true
@@ -22,7 +21,8 @@ const router = createRouter({
     },
     {
       path: '/tasks/:id',
-      component: TaskIdItem
+      component: () => import('../views/TaskPage.vue')
+
       // meta: {
       //   requiresAuth: true
       // }

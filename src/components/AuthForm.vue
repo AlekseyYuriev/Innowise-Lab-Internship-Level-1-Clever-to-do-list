@@ -22,9 +22,13 @@
           />
         </label>
         <p v-if="error">{{ error }}</p>
-        <button @click="handleSubmit" type="button" class="auth__button">{{ buttonText }}</button>
+        <button @click="handleSubmit" type="button" class="auth__button">
+          {{ buttonText }}
+        </button>
       </form>
-      <router-link :to="handleRoute || '/register'" class="auth__link">{{ linkText }}</router-link>
+      <router-link :to="handleRoute || '/register'" class="auth__link">{{
+        linkText
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -64,10 +68,16 @@ export default {
     async handleSubmit() {
       try {
         if (this.$route.fullPath === '/signin') {
-          await this.$store.dispatch('login', { email: this.email, password: this.password })
+          await this.$store.dispatch('login', {
+            email: this.email,
+            password: this.password
+          })
           this.$router.push('/')
         } else {
-          await this.$store.dispatch('register', { email: this.email, password: this.password })
+          await this.$store.dispatch('register', {
+            email: this.email,
+            password: this.password
+          })
           this.$router.push('/')
         }
       } catch (err) {
