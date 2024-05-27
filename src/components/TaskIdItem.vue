@@ -27,7 +27,12 @@
 
         <label class="item__lable"
           >Date:
-          <input v-model="date" type="date" name="status" class="item__input item__input-date" />
+          <input
+            v-model="date"
+            type="date"
+            name="status"
+            class="item__input item__input-date"
+          />
         </label>
       </form>
       <div class="item__buttons">
@@ -39,7 +44,11 @@
         >
           Update <span class="btn-icon-update"></span>
         </button>
-        <button type="button" class="item__delete-button btn" @click="removeTask">
+        <button
+          type="button"
+          class="item__delete-button btn"
+          @click="removeTask"
+        >
           Delete <span class="btn-icon-delete"></span>
         </button>
         <button
@@ -86,7 +95,7 @@ export default {
   },
   methods: {
     async removeTask() {
-      await removeTask(this.task)
+      await removeTask(this.task, this.userId)
       this.$router.push('/')
     },
     async changeTaskStatusToDone() {
@@ -110,7 +119,7 @@ export default {
     }
   },
   async mounted() {
-    this.task = await getTaskById(this.id)
+    this.task = await getTaskById(this.id, this.userId)
     this.title = this.task.title
     this.description = this.task.description
     this.date = this.task.date.split('-').reverse().join('-')
@@ -125,6 +134,9 @@ export default {
         return this.isTaskUpdated
       }
       return !this.isTaskUpdated
+    },
+    userId() {
+      return this.$store.state.user.uid
     }
   }
 }

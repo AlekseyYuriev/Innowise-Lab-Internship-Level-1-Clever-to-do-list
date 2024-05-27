@@ -1,15 +1,21 @@
 <template>
   <div class="page">
-    <div class="navbar">
-      <button @click="$router.push('/')">HomePage</button>
-      <button @click="$router.push('/register')">Sign Up</button>
-    </div>
+    <navbar-menu></navbar-menu>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {}
+import NavbarMenu from './components/NavbarMenu.vue'
+export default {
+  components: { NavbarMenu },
+  data() {
+    return {}
+  },
+  async mounted() {
+    console.log(this.$store.state.user, this.$store.state.isLoggedIn)
+  }
+}
 </script>
 
 <style>
@@ -29,13 +35,5 @@ export default {}
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
-}
-
-.navbar {
-  margin: 0 auto;
-  padding-bottom: 50px;
-  max-width: 762px;
-  display: flex;
-  justify-content: space-around;
 }
 </style>

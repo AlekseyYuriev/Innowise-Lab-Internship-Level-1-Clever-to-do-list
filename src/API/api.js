@@ -1,17 +1,32 @@
 import { db } from '@/firebase'
-import { collection, getDocs, doc, getDoc, addDoc, deleteDoc, updateDoc } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  addDoc,
+  deleteDoc,
+  updateDoc
+} from 'firebase/firestore'
 
-export const getTaskById = async (id) => {
-  const docRef = doc(db, 'todos', id)
+export const getTaskById = async (taskId, userId) => {
+  const docRef = doc(db, 'users', userId, 'todos', taskId)
   const docSnap = await getDoc(docRef)
 
   if (docSnap.exists()) {
     const task = {
-      id: id,
+      id: taskId,
       title: docSnap.data().title,
       description: docSnap.data().description,
       done: docSnap.data().done,
-      date: docSnap.data().date.toDate().toISOString().split('T')[0].split('-').reverse().join('-')
+      date: docSnap
+        .data()
+        .date.toDate()
+        .toISOString()
+        .split('T')[0]
+        .split('-')
+        .reverse()
+        .join('-')
     }
     return task
   } else {
@@ -19,29 +34,37 @@ export const getTaskById = async (id) => {
   }
 }
 
-export const getAllTasks = async () => {
+export const getAllTasks = async (id) => {
+  console.log(id)
   const tasks = []
-  const querySnapshot = await getDocs(collection(db, 'todos'))
+  const querySnapshot = await getDocs(collection(db, 'users', id, 'todos'))
   querySnapshot.forEach((doc) => {
     tasks.push({
       id: doc.id,
       title: doc.data().title,
       description: doc.data().description,
       done: doc.data().done,
-      date: doc.data().date.toDate().toISOString().split('T')[0].split('-').reverse().join('-')
+      date: doc
+        .data()
+        .date.toDate()
+        .toISOString()
+        .split('T')[0]
+        .split('-')
+        .reverse()
+        .join('-')
     })
   })
   return tasks
 }
 
-export const createTask = async (task) => {
+export const createTask = async (task, id) => {
   task.date = new Date(task.date)
-  const docRef = await addDoc(collection(db, 'todos'), task)
+  const docRef = await addDoc(collection(db, 'users', id, 'todos'), task)
   console.log('Document written with ID: ', docRef.id)
 }
 
-export const removeTask = async (task) => {
-  await deleteDoc(doc(db, 'todos', task.id))
+export const removeTask = async (task, id) => {
+  await deleteDoc(doc(db, 'users', id, 'todos', task.id))
 }
 
 export const changeTaskStatusToDone = async (id) => {

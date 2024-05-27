@@ -4,12 +4,25 @@
       <h1 class="auth__title">{{ title }}</h1>
       <form @submit.prevent class="auth__form">
         <label class="auth__lable">
-          <input type="text" name="email" class="auth__input" placeholder="Your email address" />
+          <input
+            v-model="email"
+            type="email"
+            name="email"
+            class="auth__input"
+            placeholder="Your email address"
+          />
         </label>
         <label class="auth__lable">
-          <input type="text" name="email" class="auth__input" placeholder="Password" />
+          <input
+            v-model="password"
+            type="password"
+            name="email"
+            class="auth__input"
+            placeholder="Password"
+          />
         </label>
-        <button class="auth__button">{{ buttonText }}</button>
+        <p v-if="error">{{ error }}</p>
+        <button @click="handleSubmit" type="button" class="auth__button">{{ buttonText }}</button>
       </form>
       <router-link :to="handleRoute || '/register'" class="auth__link">{{ linkText }}</router-link>
     </div>
@@ -18,6 +31,13 @@
 
 <script>
 export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      error: null
+    }
+  },
   props: {
     title: {
       type: String,
@@ -38,6 +58,21 @@ export default {
         return '/register'
       }
       return '/signin'
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        if (this.$route.fullPath === '/signin') {
+          await this.$store.dispatch('login', { email: this.email, password: this.password })
+          this.$router.push('/')
+        } else {
+          await this.$store.dispatch('register', { email: this.email, password: this.password })
+          this.$router.push('/')
+        }
+      } catch (err) {
+        this.error = err.message
+      }
     }
   }
 }

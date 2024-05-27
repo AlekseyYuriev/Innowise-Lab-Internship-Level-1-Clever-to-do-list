@@ -1,21 +1,25 @@
 <template>
   <div class="tasks">
     <div v-if="this.tasks.length > 0" class="tasks__content">
-      <div class="tasks__header">
-        <h1 class="tasks__title">Tassker</h1>
-      </div>
-      <div class="tasks__container">
-        <h3 class="tasks__quantity">5 Tasks Today</h3>
-        <div class="tasks__list">
-          <task-item
-            v-for="task in tasks"
-            :task="task"
-            :key="task.id"
-            @click="$router.push(`/tasks/${task.id}`)"
-          />
+      <div class="tasks__content">
+        <div class="tasks__header">
+          <h1 class="tasks__title">Tassker</h1>
         </div>
+        <div class="tasks__container">
+          <h3 class="tasks__quantity">5 Tasks Today</h3>
+          <div class="tasks__list">
+            <task-item
+              v-for="task in tasks"
+              :task="task"
+              :key="task.id"
+              @click="$router.push(`/tasks/${task.id}`)"
+            />
+          </div>
+        </div>
+        <button @click="showDialog" class="tasks__button">
+          + Add a New Task
+        </button>
       </div>
-      <button @click="showDialog" class="tasks__button">+ Add a New Task</button>
     </div>
     <PageLoader v-else />
     <AddTaskDialog @create="addTask" v-model:show="dialogVisible" />
@@ -41,9 +45,9 @@ export default {
   },
   methods: {
     async addTask(task) {
-      await createTask(task)
+      await createTask(task, this.userId)
       this.dialogVisible = false
-      this.tasks = await getAllTasks()
+      this.tasks = await getAllTasks(this.userId)
     },
     showDialog() {
       this.dialogVisible = true
@@ -52,9 +56,15 @@ export default {
       task.status === false ? (task.status = true) : (task.status = false)
     }
   },
-  async beforeMount() {
-    console.log('before Mount')
-    this.tasks = await getAllTasks()
+  computed: {
+    userId() {
+      return this.$store.state.user.uid
+    }
+  },
+  async mounted() {
+    console.log('mounted')
+    console.log(this.userId)
+    this.tasks = await getAllTasks(this.userId)
   },
   unmounted() {
     console.log('unmounted')
