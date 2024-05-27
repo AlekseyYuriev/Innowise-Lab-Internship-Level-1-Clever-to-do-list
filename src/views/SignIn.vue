@@ -1,5 +1,10 @@
 <template>
-  <AuthForm title="Sign In" buttonText="Signin" linkText="Go to Sign Up" />
+  <AuthForm
+    title="Sign In"
+    buttonText="Signin"
+    subtitleText="New to Tassker?"
+    linkText="Go to Sign Up"
+  />
 </template>
 
 <script>

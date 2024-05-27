@@ -149,7 +149,7 @@ export default {
   min-height: 400px;
   width: 100%;
   background-color: #fff;
-  margin: 0 auto;
+  margin: 30px auto 0;
   border-radius: 16px;
   box-shadow: 0 20px 40px #525354;
   display: flex;

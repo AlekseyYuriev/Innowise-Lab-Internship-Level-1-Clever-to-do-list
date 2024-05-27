@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <navbar-menu></navbar-menu>
+    <navbar-menu v-if="authIsReady"></navbar-menu>
     <router-view></router-view>
   </div>
 </template>
@@ -11,6 +11,11 @@ export default {
   components: { NavbarMenu },
   data() {
     return {}
+  },
+  computed: {
+    authIsReady() {
+      return this.$store.state.authIsReady
+    }
   },
   async mounted() {
     console.log(this.$store.state.user, this.$store.state.isLoggedIn)
@@ -26,7 +31,7 @@ export default {
   min-width: 320px;
   width: 100%;
   margin: 0 auto;
-  padding: 30px 0 30px 0;
+  padding: 50px 0;
   background-color: #e8e8ea;
   font-family: 'Inter', Helvetica, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;

@@ -1,25 +1,23 @@
 <template>
   <div class="tasks">
     <div v-if="this.tasks.length > 0" class="tasks__content">
-      <div class="tasks__content">
-        <div class="tasks__header">
-          <h1 class="tasks__title">Tassker</h1>
-        </div>
-        <div class="tasks__container">
-          <h3 class="tasks__quantity">5 Tasks Today</h3>
-          <div class="tasks__list">
-            <task-item
-              v-for="task in tasks"
-              :task="task"
-              :key="task.id"
-              @click="$router.push(`/tasks/${task.id}`)"
-            />
-          </div>
-        </div>
-        <button @click="showDialog" class="tasks__button">
-          + Add a New Task
-        </button>
+      <div class="tasks__header">
+        <h1 class="tasks__title">Tassker</h1>
       </div>
+      <div class="tasks__container">
+        <h3 class="tasks__quantity">5 Tasks Today</h3>
+        <div class="tasks__list">
+          <task-item
+            v-for="task in tasks"
+            :task="task"
+            :key="task.id"
+            @click="$router.push(`/tasks/${task.id}`)"
+          />
+        </div>
+      </div>
+      <button @click="showDialog" class="tasks__button">
+        + Add a New Task
+      </button>
     </div>
     <PageLoader v-else />
     <AddTaskDialog @create="addTask" v-model:show="dialogVisible" />
@@ -78,7 +76,7 @@ export default {
   min-height: 400px;
   width: 100%;
   background-color: #fff;
-  margin: 0 auto;
+  margin: 30px auto 0;
   border-radius: 16px;
   box-shadow: 0 20px 40px #525354;
   display: flex;
@@ -121,7 +119,7 @@ export default {
   width: 100%;
 }
 .tasks__button {
-  margin-top: 30px;
+  margin-top: 70px;
   padding: 0;
   max-width: 300px;
   width: 100%;

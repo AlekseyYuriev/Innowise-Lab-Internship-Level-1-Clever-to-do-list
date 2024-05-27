@@ -22,13 +22,16 @@
           />
         </label>
         <p v-if="error">{{ error }}</p>
-        <button @click="handleSubmit" type="button" class="auth__button">
+        <button @click="handleSubmit" type="submit" class="auth__button">
           {{ buttonText }}
         </button>
       </form>
-      <router-link :to="handleRoute || '/register'" class="auth__link">{{
-        linkText
-      }}</router-link>
+      <p class="auth__subtitle">
+        {{ subtitleText }}
+        <router-link :to="handleRoute || '/register'" class="auth__link">{{
+          linkText
+        }}</router-link>
+      </p>
     </div>
   </div>
 </template>
@@ -48,6 +51,10 @@ export default {
       required: true
     },
     buttonText: {
+      type: String,
+      required: true
+    },
+    subtitleText: {
       type: String,
       required: true
     },
@@ -94,12 +101,12 @@ export default {
   min-height: 400px;
   width: 100%;
   background-color: #fff;
-  margin: 50px auto 0;
+  margin: 30px auto 0;
   border-radius: 16px;
   box-shadow: 0 20px 40px #525354;
 }
 .auth__container {
-  max-width: 300px;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -114,7 +121,7 @@ export default {
 .auth__form {
   width: 100%;
   min-height: 250px;
-  margin: 30px auto 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -160,11 +167,18 @@ export default {
 .auth__button:active {
   transform: scale(98%);
 }
-.auth__link {
+.auth__subtitle {
+  display: flex;
   width: 100%;
+  margin: 20px 0 70px;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #545454;
+}
+.auth__link {
   display: flex;
   justify-content: center;
-  margin: 10px 0 80px;
   cursor: pointer;
   color: #39c6d2;
   text-decoration: underline;
