@@ -3,6 +3,7 @@
     <div class="tasks__content">
       <div class="tasks__header">
         <h1 class="tasks__title">Tassker</h1>
+        <calendar-list @choose-date="currentDayTask(date)"></calendar-list>
       </div>
       <div v-if="tasks" class="tasks__container">
         <h3 v-if="tasks.length > 0" class="tasks__quantity">
@@ -11,7 +12,7 @@
         <h3 v-else class="tasks__no-quantity">Add Tasks To Do...</h3>
         <div class="tasks__list">
           <task-item
-            v-for="task in tasks"
+            v-for="task in currentDayTask(currentDate)"
             :task="task"
             :key="task.id"
             @click.stop="$router.push(`/tasks/${task.id}`)"
@@ -34,17 +35,25 @@
 import { createTask, getAllTasks } from '@/API/api'
 import AddTaskDialog from '../components/AddTaskDialog.vue'
 import TaskItem from '../components/TaskItem.vue'
+import CalendarList from '../components/CalendarList.vue'
 
 export default {
   components: {
     AddTaskDialog,
-    TaskItem
+    TaskItem,
+    CalendarList
   },
   data() {
     return {
       tasks: null,
       dialogVisible: false,
-      checkboxStatus: false
+      checkboxStatus: false,
+      currentDate: new Date()
+        .toISOString()
+        .split('T')[0]
+        .split('-')
+        .reverse()
+        .join('-')
     }
   },
   methods: {
@@ -58,6 +67,11 @@ export default {
     },
     changeStatus(task) {
       task.status === false ? (task.status = true) : (task.status = false)
+    },
+    currentDayTask(date) {
+      console.log(date)
+      const filteredTasks = this.tasks.filter((task) => task.date === date)
+      return filteredTasks
     }
   },
   computed: {
@@ -97,6 +111,8 @@ export default {
   max-width: 702px;
   margin: 0;
   display: flex;
+  gap: 15px;
+  flex-direction: column;
   justify-content: space-between;
 }
 .tasks__title {
