@@ -99,13 +99,13 @@ export default {
       this.$router.push('/')
     },
     async changeTaskStatusToDone() {
-      await changeTaskStatusToDone(this.task.id)
-      this.task = await getTaskById(this.id)
+      await changeTaskStatusToDone(this.task.id, this.userId)
+      this.task = await getTaskById(this.task.id, this.userId)
       this.$router.push('/')
     },
     async changeTaskStatusToNotDone() {
-      await changeTaskStatusToNotDone(this.task.id)
-      this.task = await getTaskById(this.id)
+      await changeTaskStatusToNotDone(this.task.id, this.userId)
+      this.task = await getTaskById(this.task.id, this.userId)
     },
     async updateTask() {
       const updatedTask = {
@@ -114,8 +114,8 @@ export default {
         description: this.description,
         date: this.date
       }
-      await updateTask(updatedTask)
-      this.task = await getTaskById(this.id)
+      await updateTask(updatedTask, this.userId)
+      this.task = await getTaskById(this.task.id, this.userId)
     }
   },
   async mounted() {

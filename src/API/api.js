@@ -34,10 +34,9 @@ export const getTaskById = async (taskId, userId) => {
   }
 }
 
-export const getAllTasks = async (id) => {
-  console.log(id)
+export const getAllTasks = async (userId) => {
   const tasks = []
-  const querySnapshot = await getDocs(collection(db, 'users', id, 'todos'))
+  const querySnapshot = await getDocs(collection(db, 'users', userId, 'todos'))
   querySnapshot.forEach((doc) => {
     tasks.push({
       id: doc.id,
@@ -67,24 +66,24 @@ export const removeTask = async (task, id) => {
   await deleteDoc(doc(db, 'users', id, 'todos', task.id))
 }
 
-export const changeTaskStatusToDone = async (id) => {
-  const updatedTask = doc(db, 'todos', id)
+export const changeTaskStatusToDone = async (taskId, userId) => {
+  const updatedTask = doc(db, 'users', userId, 'todos', taskId)
 
   await updateDoc(updatedTask, {
     done: true
   })
 }
 
-export const changeTaskStatusToNotDone = async (id) => {
-  const updatedTask = doc(db, 'todos', id)
+export const changeTaskStatusToNotDone = async (taskId, userId) => {
+  const updatedTask = doc(db, 'users', userId, 'todos', taskId)
 
   await updateDoc(updatedTask, {
     done: false
   })
 }
 
-export const updateTask = async (task) => {
-  const updatedTask = doc(db, 'todos', task.id)
+export const updateTask = async (task, userId) => {
+  const updatedTask = doc(db, 'users', userId, 'todos', task.id)
 
   await updateDoc(updatedTask, {
     title: task.title,
