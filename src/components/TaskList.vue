@@ -72,12 +72,7 @@ export default {
     }
   },
   async mounted() {
-    console.log('mounted')
-    console.log(this.userId)
     this.tasks = await getAllTasks(this.userId)
-  },
-  unmounted() {
-    console.log('unmounted')
   }
 }
 </script>
