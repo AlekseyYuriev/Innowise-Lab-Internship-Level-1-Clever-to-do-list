@@ -21,7 +21,7 @@
             v-model.trim="description"
             class="item__input item__input-description"
             name="description"
-            rows="6"
+            rows="5"
           ></textarea>
         </label>
 
@@ -170,10 +170,11 @@ export default {
 .item__header {
   margin: 0;
   font-size: 32px;
+  color: #545454;
 }
 .item__content {
   max-width: 500px;
-  padding: 20px 0;
+  padding: 20px 0 0;
 }
 .item__lable {
   width: 100%;
@@ -195,6 +196,7 @@ export default {
   height: 35px;
 }
 .item__input-date {
+  height: 35px;
   position: relative;
 }
 .item__input-date::-webkit-calendar-picker-indicator {

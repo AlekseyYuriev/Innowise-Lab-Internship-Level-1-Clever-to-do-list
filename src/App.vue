@@ -29,9 +29,8 @@ export default {
 .page {
   min-height: 100vh;
   min-width: 320px;
-  width: 100%;
   margin: 0 auto;
-  padding: 50px 0;
+  padding: 15px 0 0;
   background-color: #e8e8ea;
   font-family: 'Inter', Helvetica, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;

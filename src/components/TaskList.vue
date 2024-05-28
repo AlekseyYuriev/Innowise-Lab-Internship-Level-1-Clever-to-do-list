@@ -1,25 +1,31 @@
 <template>
   <div class="tasks">
-    <div v-if="this.tasks.length > 0" class="tasks__content">
+    <div class="tasks__content">
       <div class="tasks__header">
         <h1 class="tasks__title">Tassker</h1>
       </div>
-      <div class="tasks__container">
-        <h3 class="tasks__quantity">5 Tasks Today</h3>
+      <div v-if="tasks" class="tasks__container">
+        <h3 v-if="tasks.length > 0" class="tasks__quantity">
+          {{ tasks.length }} {{ taskText }} Today
+        </h3>
+        <h3 v-else class="tasks__no-quantity">Add Tasks To Do...</h3>
         <div class="tasks__list">
           <task-item
             v-for="task in tasks"
             :task="task"
             :key="task.id"
-            @click="$router.push(`/tasks/${task.id}`)"
+            @click.stop="$router.push(`/tasks/${task.id}`)"
           />
         </div>
+      </div>
+      <div v-else class="tasks__loader">
+        <PageLoader />
       </div>
       <button @click="showDialog" class="tasks__button">
         + Add a New Task
       </button>
     </div>
-    <PageLoader v-else />
+
     <AddTaskDialog @create="addTask" v-model:show="dialogVisible" />
   </div>
 </template>
@@ -36,7 +42,7 @@ export default {
   },
   data() {
     return {
-      tasks: [],
+      tasks: null,
       dialogVisible: false,
       checkboxStatus: false
     }
@@ -57,6 +63,12 @@ export default {
   computed: {
     userId() {
       return this.$store.state.user.uid
+    },
+    taskText() {
+      if (this.tasks.length === 1) {
+        return 'Task'
+      }
+      return 'Tasks'
     }
   },
   async mounted() {
@@ -79,10 +91,6 @@ export default {
   margin: 30px auto 0;
   border-radius: 16px;
   box-shadow: 0 20px 40px #525354;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 .tasks__content {
   max-width: 762px;
@@ -103,6 +111,7 @@ export default {
 }
 .tasks__container {
   max-width: 702px;
+  min-height: 200px;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -112,11 +121,21 @@ export default {
   color: #545454;
   margin-top: 30px;
 }
+.tasks__no-quantity {
+  color: #838383;
+  margin-top: 30px;
+}
 .tasks__list {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 100%;
+}
+.tasks__loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
 }
 .tasks__button {
   margin-top: 70px;
