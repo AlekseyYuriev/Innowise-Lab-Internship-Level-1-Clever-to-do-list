@@ -22,7 +22,7 @@
             v-for="task in filteredTasks"
             :task="task"
             :key="task.id"
-            @click.stop="$router.push(`/tasks/${task.id}`)"
+            @change-task-status="changeStatus"
           />
         </div>
       </div>
@@ -39,7 +39,12 @@
 </template>
 
 <script>
-import { createTask, getAllTasks } from '@/API/api'
+import {
+  changeTaskStatusToDone,
+  changeTaskStatusToNotDone,
+  createTask,
+  getAllTasks
+} from '@/API/api'
 import AddTaskDialog from '../components/AddTaskDialog.vue'
 import TaskItem from '../components/TaskItem.vue'
 import CalendarList from '../components/CalendarList.vue'
@@ -56,12 +61,6 @@ export default {
       filteredTasks: null,
       dialogVisible: false,
       checkboxStatus: false
-      // currentDate: new Date()
-      //   .toISOString()
-      //   .split('T')[0]
-      //   .split('-')
-      //   .reverse()
-      //   .join('-')
     }
   },
   methods: {
@@ -73,15 +72,19 @@ export default {
     showDialog() {
       this.dialogVisible = true
     },
-    changeStatus(task) {
-      task.status === false ? (task.status = true) : (task.status = false)
+    async changeStatus(task, status) {
+      if (status === false) {
+        await changeTaskStatusToNotDone(task.id, this.userId)
+      } else {
+        await changeTaskStatusToDone(task.id, this.userId)
+      }
+      this.tasks = await getAllTasks(this.userId)
     },
     currentDayTask(date) {
       this.filteredTasks = this.tasks.filter((task) => task.date === date)
     },
     changeCurrentDay(day) {
       this.currentDayTask(day)
-      // this.currentDate = day
       this.$store.dispatch('changeCurrentDate', day)
     }
   },
