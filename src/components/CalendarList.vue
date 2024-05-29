@@ -8,12 +8,22 @@
       <button
         @click="chooseDate(formatNextDate(day))"
         class="calendar__button"
+        :class="{ 'calendar__button-active': activeDate(day) }"
         ref="calendarButton"
         type="button"
-        :date="formatNextDate(day)"
       >
-        <p class="calendar__day">{{ dayOfWeek(day) }}</p>
-        <p class="calendar__date">{{ formatNextDate(day).slice(0, 2) }}</p>
+        <p
+          class="calendar__day"
+          :class="{ 'calendar__day-active ': activeDate(day) }"
+        >
+          {{ dayOfWeek(day) }}
+        </p>
+        <p
+          class="calendar__date"
+          :class="{ 'calendar__day-active ': activeDate(day) }"
+        >
+          {{ formatNextDate(day).slice(0, 2) }}
+        </p>
       </button>
       <div class="calendar__tasks">
         <div class="calendar__tasks-done"></div>
@@ -28,7 +38,13 @@ export default {
   data() {
     return {
       daysToRender: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      currentDate: new Date()
+      currentDate: new Date(),
+      dateInFocus: new Date()
+        .toISOString()
+        .split('T')[0]
+        .split('-')
+        .reverse()
+        .join('-')
     }
   },
   methods: {
@@ -53,24 +69,34 @@ export default {
       return dayOfWeek.slice(0, 3)
     },
     chooseDate(day) {
-      console.log(day)
-      this.$emit('changeDate', day)
+      this.dateInFocus = day
+      this.$emit('chooseDate', day)
+    },
+    activeDate(day) {
+      if (this.dateInFocus === this.formatNextDate(day)) {
+        return true
+      }
+      return false
     }
   },
   mounted() {
-    this.$refs.calendarButton[0].focus()
-    console.log(this.currentDate)
-    console.log(
-      new Date(this.nextDate(1))
-        .toISOString()
-        .split('T')[0]
-        .split('-')
-        .reverse()
-        .join('-')
-    )
-    console.log(this.$refs.calendarButton[0])
+    // this.$refs.calendarButton[0].focus()
+    // console.log(this.currentDate)
+    // console.log(this.dateInFocus)
+    // console.log(this.$refs.calendarButton[0].attributes.date.value)
+    // console.log(this.formatNextDate(day))
+    // console.log(
+    //   new Date(this.nextDate(1))
+    //     .toISOString()
+    //     .split('T')[0]
+    //     .split('-')
+    //     .reverse()
+    //     .join('-')
+    // )
+    // console.log(this.$refs.calendarButton[0])
   },
-  emits: ['changeDate']
+  emits: ['chooseDate'],
+  computed: {}
 }
 </script>
 
@@ -114,7 +140,7 @@ export default {
   color: #000;
   margin: 0;
 }
-.calendar__button:focus {
+/* .calendar__button:focus {
   outline: none;
   background-color: #000;
   color: #fff;
@@ -124,6 +150,14 @@ export default {
 }
 
 .calendar__button:focus-within .calendar__date {
+  color: #fff;
+} */
+.calendar__button-active {
+  outline: none;
+  background-color: #000;
+  color: #fff;
+}
+.calendar__day-active {
   color: #fff;
 }
 .calendar__button:hover {

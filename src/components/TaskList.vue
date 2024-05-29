@@ -3,16 +3,19 @@
     <div class="tasks__content">
       <div class="tasks__header">
         <h1 class="tasks__title">Tassker</h1>
-        <calendar-list @choose-date="currentDayTask(date)"></calendar-list>
+        <calendar-list @choose-date="changeCurrentDay"></calendar-list>
       </div>
       <div v-if="tasks" class="tasks__container">
-        <h3 v-if="tasks.length > 0" class="tasks__quantity">
-          {{ tasks.length }} {{ taskText }} Today
+        <h3 v-if="filteredTasks.length > 0" class="tasks__quantity">
+          {{ filteredTasks.length }} {{ taskText }} for
+          {{ currentDate.split('-').join('.') }}
         </h3>
-        <h3 v-else class="tasks__no-quantity">Add Tasks To Do...</h3>
+        <h3 v-else class="tasks__no-quantity">
+          No Task for {{ currentDate.split('-').join('.') }}. Add notes To Do...
+        </h3>
         <div class="tasks__list">
           <task-item
-            v-for="task in currentDayTask(currentDate)"
+            v-for="task in filteredTasks"
             :task="task"
             :key="task.id"
             @click.stop="$router.push(`/tasks/${task.id}`)"
@@ -46,6 +49,7 @@ export default {
   data() {
     return {
       tasks: null,
+      filteredTasks: null,
       dialogVisible: false,
       checkboxStatus: false,
       currentDate: new Date()
@@ -69,9 +73,13 @@ export default {
       task.status === false ? (task.status = true) : (task.status = false)
     },
     currentDayTask(date) {
-      console.log(date)
-      const filteredTasks = this.tasks.filter((task) => task.date === date)
-      return filteredTasks
+      this.filteredTasks = this.tasks.filter((task) => task.date === date)
+    },
+    changeCurrentDay(day) {
+      // console.log(day)
+      // console.log(this.currentDate)
+      this.currentDayTask(day)
+      this.currentDate = day
     }
   },
   computed: {
@@ -79,7 +87,7 @@ export default {
       return this.$store.state.user.uid
     },
     taskText() {
-      if (this.tasks.length === 1) {
+      if (this.filteredTasks.length === 1) {
         return 'Task'
       }
       return 'Tasks'
@@ -87,6 +95,16 @@ export default {
   },
   async mounted() {
     this.tasks = await getAllTasks(this.userId)
+    this.filteredTasks = this.tasks.filter(
+      (task) => task.date === this.currentDate
+    )
+  },
+  watch: {
+    tasks(newTasks) {
+      this.filteredTasks = newTasks.filter(
+        (task) => task.date === this.currentDate
+      )
+    }
   }
 }
 </script>

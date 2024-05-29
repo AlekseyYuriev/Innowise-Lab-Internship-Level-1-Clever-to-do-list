@@ -36,37 +36,44 @@
         </label>
       </form>
       <div class="item__buttons">
-        <button
-          :disabled="handleUpdateTask"
-          @click="updateTask"
-          type="button"
-          class="item__update-button btn"
-        >
-          Update <span class="btn-icon-update"></span>
-        </button>
-        <button
-          type="button"
-          class="item__delete-button btn"
-          @click="removeTask"
-        >
-          Delete <span class="btn-icon-delete"></span>
-        </button>
-        <button
-          v-if="!this.task.done"
-          type="button"
-          class="item__done-button btn"
-          @click="changeTaskStatusToDone"
-        >
-          Done <span class="btn-icon-done"></span>
-        </button>
-        <button
-          v-else
-          type="button"
-          class="item__notdone-button btn"
-          @click="changeTaskStatusToNotDone"
-        >
-          Not Done <span class="btn-icon-notdone"></span>
-        </button>
+        <div class="item__buttons-task">
+          <button
+            :disabled="handleUpdateTask"
+            @click="updateTask"
+            type="button"
+            class="item__update-button btn"
+          >
+            Update <span class="btn-icon-update"></span>
+          </button>
+          <button
+            type="button"
+            class="item__delete-button btn"
+            @click="removeTask"
+          >
+            Delete <span class="btn-icon-delete"></span>
+          </button>
+          <button
+            v-if="!this.task.done"
+            type="button"
+            class="item__done-button btn"
+            @click="changeTaskStatusToDone"
+          >
+            Done <span class="btn-icon-done"></span>
+          </button>
+          <button
+            v-else
+            type="button"
+            class="item__notdone-button btn"
+            @click="changeTaskStatusToNotDone"
+          >
+            Not Done <span class="btn-icon-notdone"></span>
+          </button>
+        </div>
+        <div class="item__buttons-route">
+          <button @click="goBack" type="button" class="item__go-back-button">
+            Back to Tasks-->
+          </button>
+        </div>
       </div>
     </div>
     <page-loader v-else class="loader"></page-loader>
@@ -116,6 +123,9 @@ export default {
       }
       await updateTask(updatedTask, this.userId)
       this.task = await getTaskById(this.task.id, this.userId)
+    },
+    goBack() {
+      this.$router.go(-1)
     }
   },
   async mounted() {
@@ -165,7 +175,7 @@ export default {
 .item {
   border-bottom: 1px solid #dcdcdc;
   padding-bottom: 20px;
-  max-width: 702px;
+  max-width: 500px;
 }
 .item__header {
   margin: 0;
@@ -216,8 +226,20 @@ export default {
 }
 .item__buttons {
   display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  max-width: 700px;
+}
+.item__buttons-task {
+  width: 500px;
+  display: flex;
+  justify-content: flex-start;
   justify-content: space-between;
-  max-width: 500px;
+}
+.item__buttons-route {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .btn {
   padding: 0;
@@ -312,5 +334,26 @@ export default {
   background-size: cover;
   background-color: transparent;
   cursor: pointer;
+}
+.item__go-back-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 150px;
+  width: 100%;
+  background-color: transparent;
+  text-decoration: underline;
+  color: #6cb0b6;
+  cursor: pointer;
+  transition:
+    opacity 0.3s,
+    transform 0.2s;
+}
+.item__go-back-button:not(:disabled):hover {
+  opacity: 0.8;
+  transform: scale(101%);
+}
+.item__go-back-button:not(:disabled):active {
+  transform: scale(98%);
 }
 </style>
