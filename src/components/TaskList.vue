@@ -55,13 +55,13 @@ export default {
       tasks: null,
       filteredTasks: null,
       dialogVisible: false,
-      checkboxStatus: false,
-      currentDate: new Date()
-        .toISOString()
-        .split('T')[0]
-        .split('-')
-        .reverse()
-        .join('-')
+      checkboxStatus: false
+      // currentDate: new Date()
+      //   .toISOString()
+      //   .split('T')[0]
+      //   .split('-')
+      //   .reverse()
+      //   .join('-')
     }
   },
   methods: {
@@ -81,7 +81,8 @@ export default {
     },
     changeCurrentDay(day) {
       this.currentDayTask(day)
-      this.currentDate = day
+      // this.currentDate = day
+      this.$store.dispatch('changeCurrentDate', day)
     }
   },
   computed: {
@@ -93,6 +94,9 @@ export default {
         return 'Task'
       }
       return 'Tasks'
+    },
+    currentDate() {
+      return this.$store.state.currentDate
     }
   },
   async mounted() {

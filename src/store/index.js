@@ -10,7 +10,13 @@ import { createStore } from 'vuex'
 const store = createStore({
   state: {
     user: null,
-    authIsReady: false
+    authIsReady: false,
+    currentDate: new Date()
+      .toISOString()
+      .split('T')[0]
+      .split('-')
+      .reverse()
+      .join('-')
   },
   mutations: {
     setUser(state, payload) {
@@ -19,6 +25,9 @@ const store = createStore({
     },
     setAuthIsReady(state, payload) {
       state.authIsReady = payload
+    },
+    setCurrentDate(state, payload) {
+      state.currentDate = payload
     }
   },
   actions: {
@@ -46,6 +55,9 @@ const store = createStore({
       console.log('logout actions')
       await signOut(auth)
       context.commit('setUser', null)
+    },
+    changeCurrentDate(context, date) {
+      context.commit('setCurrentDate', date)
     }
   }
 })

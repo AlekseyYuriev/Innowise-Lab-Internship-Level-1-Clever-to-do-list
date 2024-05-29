@@ -50,19 +50,16 @@ export default {
   },
   data() {
     return {
-      daysToRender: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-      currentDate: new Date(),
-      dateInFocus: new Date()
-        .toISOString()
-        .split('T')[0]
-        .split('-')
-        .reverse()
-        .join('-')
+      daysToRender: [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29
+      ],
+      initialDate: new Date()
     }
   },
   methods: {
     nextDate(n) {
-      return this.currentDate.getTime() + 86400000 * n
+      return this.initialDate.getTime() + 86400000 * n
     },
     formatNextDate(n) {
       const day = new Date(this.nextDate(n))
@@ -82,7 +79,7 @@ export default {
       return dayOfWeek.slice(0, 3)
     },
     chooseDate(day) {
-      this.dateInFocus = day
+      this.$store.dispatch('changeCurrentDate', day)
       this.$emit('chooseDate', day)
     },
     activeDate(day) {
@@ -125,7 +122,12 @@ export default {
     const observer = new IntersectionObserver(callback, options)
     observer.observe(this.$refs.observer)
   },
-  emits: ['chooseDate']
+  emits: ['chooseDate'],
+  computed: {
+    dateInFocus() {
+      return this.$store.state.currentDate
+    }
+  }
 }
 </script>
 
