@@ -3,14 +3,13 @@ import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAnfldMPk-5O0K2cmhuwgmzVP3uFulxrj0',
-  authDomain: 'clever-to-do-list-15684.firebaseapp.com',
-  projectId: 'clever-to-do-list-15684',
-  storageBucket: 'clever-to-do-list-15684.appspot.com',
-  messagingSenderId: '1054634359880',
-  appId: '1:1054634359880:web:237d0ad04d7b017eb5ac7d'
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 }
-
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 
