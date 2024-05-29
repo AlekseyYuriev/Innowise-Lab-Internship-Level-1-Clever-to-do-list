@@ -30,6 +30,7 @@
         <div class="calendar__tasks-notdone"></div>
       </div>
     </div>
+    <div ref="observer" class="observer"></div>
   </div>
 </template>
 
@@ -37,7 +38,7 @@
 export default {
   data() {
     return {
-      daysToRender: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      daysToRender: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
       currentDate: new Date(),
       dateInFocus: new Date()
         .toISOString()
@@ -80,6 +81,23 @@ export default {
     }
   },
   mounted() {
+    const options = {
+      root: document.querySelector('.calendar'),
+      rootMargin: '0px',
+      threshold: 1.0
+    }
+    const callback = (entries, observer) => {
+      if (entries[0].isIntersecting) {
+        const lastDay = this.daysToRender[this.daysToRender.length - 1]
+        const newDays = []
+        for (let i = 1; i <= 15; i++) {
+          newDays.push(lastDay + i)
+        }
+        this.daysToRender = this.daysToRender.concat(newDays)
+      }
+    }
+    const observer = new IntersectionObserver(callback, options)
+    observer.observe(this.$refs.observer)
     // this.$refs.calendarButton[0].focus()
     // console.log(this.currentDate)
     // console.log(this.dateInFocus)
@@ -95,8 +113,7 @@ export default {
     // )
     // console.log(this.$refs.calendarButton[0])
   },
-  emits: ['chooseDate'],
-  computed: {}
+  emits: ['chooseDate']
 }
 </script>
 
@@ -106,7 +123,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  overflow-x: auto;
+  overflow-x: scroll;
   padding: 10px;
   scrollbar-width: thin;
   scrollbar-color: #d9d9d9 #fff;
@@ -140,18 +157,6 @@ export default {
   color: #000;
   margin: 0;
 }
-/* .calendar__button:focus {
-  outline: none;
-  background-color: #000;
-  color: #fff;
-}
-.calendar__button:focus-within .calendar__day {
-  color: #fff;
-}
-
-.calendar__button:focus-within .calendar__date {
-  color: #fff;
-} */
 .calendar__button-active {
   outline: none;
   background-color: #000;
@@ -188,5 +193,9 @@ export default {
   height: 5px;
   background-color: #b1621e;
   border-radius: 50%;
+}
+.observer {
+  width: 0px;
+  height: 0px;
 }
 </style>
