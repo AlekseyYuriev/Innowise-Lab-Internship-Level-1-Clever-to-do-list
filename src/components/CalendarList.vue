@@ -26,8 +26,14 @@
         </p>
       </button>
       <div class="calendar__tasks">
-        <div class="calendar__tasks-done"></div>
-        <div class="calendar__tasks-notdone"></div>
+        <div
+          v-if="doneTasksAtThisDate(formatNextDate(day))"
+          class="calendar__tasks-done"
+        ></div>
+        <div
+          v-if="tasksToDoAtThisDate(formatNextDate(day))"
+          class="calendar__tasks-notdone"
+        ></div>
       </div>
     </div>
     <div ref="observer" class="observer"></div>
@@ -36,6 +42,12 @@
 
 <script>
 export default {
+  props: {
+    tasks: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       daysToRender: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
@@ -78,6 +90,20 @@ export default {
         return true
       }
       return false
+    },
+    tasksToDoAtThisDate(day) {
+      const tasksAtThisDate = this.tasks.filter((task) => task.date === day)
+      if (tasksAtThisDate.filter((task) => task.done === false).length > 0) {
+        return true
+      }
+      return false
+    },
+    doneTasksAtThisDate(day) {
+      const tasksAtThisDate = this.tasks.filter((task) => task.date === day)
+      if (tasksAtThisDate.filter((task) => task.done === true).length > 0) {
+        return true
+      }
+      return false
     }
   },
   mounted() {
@@ -86,7 +112,7 @@ export default {
       rootMargin: '0px',
       threshold: 1.0
     }
-    const callback = (entries, observer) => {
+    const callback = (entries) => {
       if (entries[0].isIntersecting) {
         const lastDay = this.daysToRender[this.daysToRender.length - 1]
         const newDays = []
@@ -177,6 +203,7 @@ export default {
   color: #fe8c2c;
 }
 .calendar__tasks {
+  height: 5px;
   display: flex;
   justify-content: center;
   align-items: center;

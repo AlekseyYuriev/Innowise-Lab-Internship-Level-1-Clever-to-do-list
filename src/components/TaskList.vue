@@ -3,7 +3,11 @@
     <div class="tasks__content">
       <div class="tasks__header">
         <h1 class="tasks__title">Tassker</h1>
-        <calendar-list @choose-date="changeCurrentDay"></calendar-list>
+        <calendar-list
+          v-if="tasks"
+          @choose-date="changeCurrentDay"
+          :tasks="tasks"
+        ></calendar-list>
       </div>
       <div v-if="tasks" class="tasks__container">
         <h3 v-if="filteredTasks.length > 0" class="tasks__quantity">
@@ -76,8 +80,6 @@ export default {
       this.filteredTasks = this.tasks.filter((task) => task.date === date)
     },
     changeCurrentDay(day) {
-      // console.log(day)
-      // console.log(this.currentDate)
       this.currentDayTask(day)
       this.currentDate = day
     }

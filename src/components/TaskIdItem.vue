@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div v-if="this.task" class="wrapper__item">
       <div class="item">
-        <h1 class="item__header">Task</h1>
+        <h1 @click="goBack" class="item__header">&#8592; Today's Task</h1>
       </div>
       <form class="item__content">
         <label class="item__lable"
@@ -67,11 +67,6 @@
             @click="changeTaskStatusToNotDone"
           >
             Not Done <span class="btn-icon-notdone"></span>
-          </button>
-        </div>
-        <div class="item__buttons-route">
-          <button @click="goBack" type="button" class="item__go-back-button">
-            Back to Tasks-->
           </button>
         </div>
       </div>
@@ -179,8 +174,18 @@ export default {
 }
 .item__header {
   margin: 0;
+  width: fit-content;
+  padding: 3px 10px 3px 3px;
   font-size: 32px;
   color: #545454;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.item__header:hover {
+  margin: 0;
+  font-size: 32px;
+  color: #fe8c2c;
+  opacity: 0.7;
 }
 .item__content {
   max-width: 500px;
@@ -228,18 +233,13 @@ export default {
   display: flex;
   justify-content: flex-start;
   gap: 20px;
-  max-width: 700px;
+  max-width: 500px;
 }
 .item__buttons-task {
   width: 500px;
   display: flex;
   justify-content: flex-start;
   justify-content: space-between;
-}
-.item__buttons-route {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .btn {
   padding: 0;
@@ -334,26 +334,5 @@ export default {
   background-size: cover;
   background-color: transparent;
   cursor: pointer;
-}
-.item__go-back-button {
-  margin: 0;
-  padding: 0;
-  border: none;
-  width: 150px;
-  width: 100%;
-  background-color: transparent;
-  text-decoration: underline;
-  color: #6cb0b6;
-  cursor: pointer;
-  transition:
-    opacity 0.3s,
-    transform 0.2s;
-}
-.item__go-back-button:not(:disabled):hover {
-  opacity: 0.8;
-  transform: scale(101%);
-}
-.item__go-back-button:not(:disabled):active {
-  transform: scale(98%);
 }
 </style>
