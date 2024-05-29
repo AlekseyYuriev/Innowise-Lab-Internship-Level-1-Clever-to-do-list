@@ -124,20 +124,6 @@ export default {
     }
     const observer = new IntersectionObserver(callback, options)
     observer.observe(this.$refs.observer)
-    // this.$refs.calendarButton[0].focus()
-    // console.log(this.currentDate)
-    // console.log(this.dateInFocus)
-    // console.log(this.$refs.calendarButton[0].attributes.date.value)
-    // console.log(this.formatNextDate(day))
-    // console.log(
-    //   new Date(this.nextDate(1))
-    //     .toISOString()
-    //     .split('T')[0]
-    //     .split('-')
-    //     .reverse()
-    //     .join('-')
-    // )
-    // console.log(this.$refs.calendarButton[0])
   },
   emits: ['chooseDate']
 }
@@ -178,15 +164,18 @@ export default {
 .calendar__day {
   color: #838383;
   margin: 0;
+  transition: all 0.3s ease;
 }
 .calendar__date {
   color: #000;
   margin: 0;
+  transition: all 0.3s ease;
 }
 .calendar__button-active {
   outline: none;
   background-color: #000;
   color: #fff;
+  transition: all 0.5s ease;
 }
 .calendar__day-active {
   color: #fff;

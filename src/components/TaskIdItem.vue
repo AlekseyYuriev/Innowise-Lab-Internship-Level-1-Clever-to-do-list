@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div v-if="this.task" class="wrapper__item">
+    <div v-if="task" class="wrapper__item">
       <div class="item">
         <h1 @click="goBack" class="item__header">&#8592; Today's Task</h1>
       </div>
@@ -53,7 +53,7 @@
             Delete <span class="btn-icon-delete"></span>
           </button>
           <button
-            v-if="!this.task.done"
+            v-if="!task.done"
             type="button"
             class="item__done-button btn"
             @click="changeTaskStatusToDone"
