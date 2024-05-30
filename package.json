@@ -30,7 +30,7 @@
     "vite": "^5.2.8"
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js,ts,vue}": [
       "prettier --write",
       "eslint --max-warnings 0 ."
     ]
