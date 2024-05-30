@@ -69,7 +69,6 @@ export default {
   },
   methods: {
     addTask() {
-      console.log(this.task.date)
       this.$emit('create', this.task)
       this.task = {
         title: '',
@@ -88,6 +87,9 @@ export default {
         done: false
       }
       this.activeColor = false
+    },
+    hideDialogOnButton() {
+      this.hideDialog()
     }
   },
   watch: {
@@ -99,6 +101,13 @@ export default {
       },
       deep: true
     }
+  },
+  mounted() {
+    document.addEventListener('keyup', (evt) => {
+      if (evt.key === 'Escape') {
+        this.hideDialogOnButton(evt)
+      }
+    })
   }
 }
 </script>
