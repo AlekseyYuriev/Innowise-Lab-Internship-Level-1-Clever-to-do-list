@@ -9,8 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "prepare": "husky install"
   },
   "dependencies": {
     "firebase": "^10.12.1",
