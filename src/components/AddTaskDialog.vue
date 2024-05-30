@@ -88,8 +88,10 @@ export default {
       }
       this.activeColor = false
     },
-    hideDialogOnButton() {
-      this.hideDialog()
+    hideDialogOnButton(evt) {
+      if (evt.key === 'Escape') {
+        this.hideDialog()
+      }
     }
   },
   watch: {
@@ -103,11 +105,10 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener('keyup', (evt) => {
-      if (evt.key === 'Escape') {
-        this.hideDialogOnButton(evt)
-      }
-    })
+    document.addEventListener('keyup', this.hideDialogOnButton)
+  },
+  beforeUnmount() {
+    document.removeEventListener('keyup', this.hideDialogOnButton)
   }
 }
 </script>
