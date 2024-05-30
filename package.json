@@ -23,15 +23,18 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
-    "husky": "^9.0.11",
+    "eslint-plugin-vuejs-accessibility": "^2.3.0",
+    "husky": "^8.0.0",
     "lint-staged": "^15.2.5",
     "prettier": "^3.2.5",
     "vite": "^5.2.8"
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
-      "prettier --write",
-      "eslint --max-warnings 0 ."
+      "npm run lint"
+    ],
+    "*.{css,vue}": [
+      "npm run lint:style"
     ]
   }
 }
