@@ -2,7 +2,7 @@
   <div class="dialog" v-if="show" @click="hideDialog">
     <div @click.stop class="dialog__content">
       <form @submit.prevent="addTask" class="dialog__form">
-        <label for="task-title" class="dialog__lable">
+        <label class="dialog__lable">
           <input
             v-model.trim="task.title"
             type="text"
@@ -11,7 +11,7 @@
             placeholder="Enter Task Title"
           />
         </label>
-        <label for="task-description" class="dialog__lable">
+        <label class="dialog__lable">
           <input
             v-model.trim="task.description"
             type="text"
@@ -20,7 +20,7 @@
             placeholder="Enter Task Description"
           />
         </label>
-        <label for="task-date" class="dialog__lable">
+        <label class="dialog__lable">
           <input
             v-model="task.date"
             :style="{ color: activeColor ? '#545454' : '' }"

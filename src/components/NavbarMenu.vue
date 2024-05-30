@@ -114,7 +114,7 @@ export default {
     max-width: 320px;
     padding: 10px 20px;
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
   }
   .navbar__title-wrapper {
     width: 100%;
@@ -138,41 +138,18 @@ export default {
     gap: 30px;
   }
   .navbar__text {
-    margin: 0;
-    color: #838383;
+    font-size: 14px;
   }
   .navbar__email {
-    margin: 0 0 0 5px;
-    color: #545454;
-    font-weight: 600;
+    margin: 0;
   }
   .navbar__button {
-    text-decoration: none;
-    padding: 0;
-    width: 100px;
-    height: 30px;
-    border: none;
-    outline: 1px solid #d9d9d9;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fefbf8;
-    background-color: #fe8c2c;
-    cursor: pointer;
-    transition:
-      opacity 0.3s,
-      transform 0.2s;
+    width: 70px;
+    height: 25px;
+    font-size: 14px;
   }
   .navbar__button-home {
     display: none;
-  }
-  .navbar__button:not(:disabled):hover {
-    opacity: 0.8;
-    transform: scale(101%);
-  }
-  .navbar__button:not(:disabled):active {
-    transform: scale(98%);
   }
 }
 </style>
