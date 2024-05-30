@@ -10,6 +10,7 @@
             name="email"
             class="auth__input"
             placeholder="Your email address"
+            autocomplete="on"
           />
         </label>
         <label class="auth__lable">
@@ -19,6 +20,7 @@
             name="email"
             class="auth__input"
             placeholder="Password"
+            autocomplete="on"
           />
         </label>
         <p v-if="error">{{ error }}</p>
@@ -182,5 +184,34 @@ export default {
   cursor: pointer;
   color: #39c6d2;
   text-decoration: underline;
+}
+@media screen and (max-width: 565px) {
+  .auth {
+    max-width: 320px;
+    margin: 15px auto 0;
+    min-height: 320px;
+  }
+  .auth__container {
+    max-width: 280px;
+  }
+  .auth__title {
+    margin: 20px 0 20px;
+    font-size: 24px;
+  }
+  .auth__form {
+    min-height: 180px;
+  }
+  .auth__input {
+    height: 40px;
+  }
+  .auth__button {
+    margin: 10px 0 0;
+    height: 40px;
+    font-size: 16px;
+  }
+  .auth__subtitle {
+    margin: 20px 0 20px;
+    font-size: 14px;
+  }
 }
 </style>
