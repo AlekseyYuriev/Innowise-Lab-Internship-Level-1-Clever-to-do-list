@@ -30,7 +30,7 @@ export default {
   min-height: 100vh;
   min-width: 320px;
   margin: 0 auto;
-  padding: 15px 0 0;
+  padding: 20px 20px 0 20px;
   background-color: #e8e8ea;
   font-family: 'Inter', Helvetica, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
@@ -39,5 +39,10 @@ export default {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+}
+@media screen and (max-width: 565px) {
+  .page {
+    padding: 15px 0 0 0;
+  }
 }
 </style>

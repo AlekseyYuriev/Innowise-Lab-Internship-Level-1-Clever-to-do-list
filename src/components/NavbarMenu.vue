@@ -1,27 +1,29 @@
 <template>
   <nav class="navbar">
-    <template v-if="!user">
-      <div class="navbar__title-wrapper">
-        <h1 class="navbar__title">Welcom to Tassker!</h1>
-      </div>
-      <div class="navbar__subtitle-wrapper">
-        <p class="navbar__subtitle">Your Tasks, Our Care...</p>
-      </div>
-    </template>
-    <template v-else>
-      <div>
-        <router-link to="/" class="navbar__button navbar__button-home"
-          >HomePage</router-link
-        >
-      </div>
+    <div class="navbar__content">
+      <template v-if="!user">
+        <div class="navbar__title-wrapper">
+          <h1 class="navbar__title">Welcom to Tassker!</h1>
+        </div>
+        <div class="navbar__subtitle-wrapper">
+          <p class="navbar__subtitle">Your Tasks, Our Care...</p>
+        </div>
+      </template>
+      <template v-else>
+        <div class="navbar__home">
+          <router-link to="/" class="navbar__button navbar__button-home"
+            >HomePage</router-link
+          >
+        </div>
 
-      <div class="navbar__wapper">
-        <p class="navbar__text">
-          Logged in as: <span class="navbar__email">{{ user.email }}</span>
-        </p>
-        <button @click="handleLogout" class="navbar__button">Log Out</button>
-      </div>
-    </template>
+        <div class="navbar__wapper">
+          <p class="navbar__text">
+            Logged in as: <span class="navbar__email">{{ user.email }}</span>
+          </p>
+          <button @click="handleLogout" class="navbar__button">Log Out</button>
+        </div>
+      </template>
+    </div>
   </nav>
 </template>
 
@@ -46,14 +48,18 @@ export default {
 
 <style scoped>
 .navbar {
-  box-sizing: border-box;
   max-width: 762px;
-  width: 100%;
   background-color: #fff;
+  width: 100%;
   margin: 0 auto;
-  padding: 15px 50px;
   border-radius: 16px;
   box-shadow: 0 20px 40px #525354;
+}
+.navbar__content {
+  max-width: 762px;
+  width: 100%;
+  padding: 15px 50px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -109,12 +115,35 @@ export default {
 .navbar__button:not(:disabled):active {
   transform: scale(98%);
 }
+@media screen and (max-width: 700px) {
+  .navbar__home {
+    display: none;
+  }
+  .navbar__wapper {
+    max-width: 600px;
+    width: 100%;
+  }
+  .navbar__text {
+    width: 100%;
+  }
+  .navbar__button {
+    width: 80px;
+    height: 25px;
+    font-size: 12px;
+    padding: 0 5px;
+  }
+}
 @media screen and (max-width: 565px) {
   .navbar {
-    max-width: 320px;
-    padding: 10px 20px;
+    max-width: 300px;
     flex-direction: column;
     gap: 0;
+  }
+  .navbar__content {
+    max-width: 300px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
   }
   .navbar__title-wrapper {
     width: 100%;
@@ -142,14 +171,6 @@ export default {
   }
   .navbar__email {
     margin: 0;
-  }
-  .navbar__button {
-    width: 70px;
-    height: 25px;
-    font-size: 14px;
-  }
-  .navbar__button-home {
-    display: none;
   }
 }
 </style>

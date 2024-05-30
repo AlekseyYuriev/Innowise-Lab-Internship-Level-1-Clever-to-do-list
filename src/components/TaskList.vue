@@ -198,4 +198,44 @@ export default {
 .tasks__button:active {
   transform: scale(98%);
 }
+@media screen and (max-width: 565px) {
+  .tasks {
+    max-width: 300px;
+    min-height: 412px;
+    margin: 15px auto 0;
+  }
+  .tasks__content {
+    max-width: 300px;
+    padding: 20px;
+  }
+  .tasks__header {
+    max-width: 300px;
+    gap: 5px;
+  }
+  .tasks__title {
+    font-size: 20px;
+  }
+  .tasks__container {
+    max-width: 300px;
+    min-height: 150px;
+  }
+  .tasks__quantity {
+    font-size: 16px;
+    margin-top: 15px;
+  }
+  .tasks__no-quantity {
+    font-size: 16px;
+    margin-top: 15px;
+    max-width: 220px;
+  }
+  .tasks__list {
+    font-size: 14px;
+    gap: 10px;
+  }
+  .tasks__button {
+    margin-top: 85px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
 </style>

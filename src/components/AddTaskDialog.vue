@@ -7,18 +7,19 @@
             v-model.trim="task.title"
             type="text"
             name="task-title"
-            class="dialog__input"
+            class="dialog__input dialog__input-title"
             placeholder="Enter Task Title"
           />
         </label>
         <label class="dialog__lable">
-          <input
+          <textarea
             v-model.trim="task.description"
             type="text"
             name="task-description"
-            class="dialog__input"
+            class="dialog__input dialog__input-description"
             placeholder="Enter Task Description"
-          />
+            rows="5"
+          ></textarea>
         </label>
         <label class="dialog__lable">
           <input
@@ -148,7 +149,6 @@ export default {
 .dialog__input {
   box-sizing: border-box;
   display: flex;
-  height: 50px;
   width: 100%;
   margin: 0 0 20px;
   padding: 0 0 0 15px;
@@ -157,10 +157,17 @@ export default {
   border-radius: 20px;
   color: #545454;
 }
+.dialog__input-title {
+  height: 50px;
+}
+.dialog__input-description {
+  padding: 15px 0 0 15px;
+}
 .dialog__input::placeholder {
   color: #838383;
 }
 .input__date {
+  height: 50px;
   color: #838383;
 }
 .input__date {
@@ -207,5 +214,34 @@ export default {
 .dialog__button:disabled {
   cursor: not-allowed;
   background-color: #cbcbcb;
+}
+@media screen and (max-width: 565px) {
+  .dialog__content {
+    box-sizing: border-box;
+    width: 280px;
+    padding: 10px;
+  }
+  .dialog__form {
+    width: 250px;
+    margin: 20px auto 0;
+  }
+  .dialog__input {
+    margin: 0 0 15px;
+    font-size: 12px;
+  }
+  .dialog__input-title {
+    height: 40px;
+  }
+  .dialog__input-description {
+    padding: 10px 0 0 15px;
+  }
+  .input__date {
+    height: 40px;
+  }
+  .dialog__button {
+    width: 250px;
+    height: 40px;
+    font-size: 12px;
+  }
 }
 </style>

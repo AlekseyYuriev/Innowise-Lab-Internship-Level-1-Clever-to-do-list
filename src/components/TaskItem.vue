@@ -74,7 +74,7 @@ export default {
   background-size: 50% 50%;
 }
 .task__checkbox:checked + .task__label::before {
-  border-color: #fffcfb;
+  border-color: #ff8a34;
   background-color: #ff8a34;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
 }
@@ -107,5 +107,11 @@ export default {
   color: #fe8c2c;
   opacity: 0.7;
   transform: scale(103%);
+}
+@media screen and (max-width: 565px) {
+  .task__title {
+    margin-left: 5px;
+    font-size: 13px;
+  }
 }
 </style>

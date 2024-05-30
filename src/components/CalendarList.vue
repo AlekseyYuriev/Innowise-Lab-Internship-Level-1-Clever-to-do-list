@@ -216,4 +216,33 @@ export default {
   width: 0px;
   height: 0px;
 }
+@media screen and (max-width: 565px) {
+  .calendar {
+    gap: 5px;
+    padding: 5px;
+  }
+  .calendar__button {
+    min-width: 28px;
+    min-height: 38px;
+    border-radius: 10px;
+  }
+  .calendar__day {
+    font-size: 10px;
+  }
+  .calendar__date {
+    font-size: 10px;
+  }
+  .calendar__tasks {
+    height: 4px;
+    padding-bottom: 2px;
+  }
+  .calendar__tasks-done {
+    width: 4px;
+    height: 4px;
+  }
+  .calendar__tasks-notdone {
+    width: 4px;
+    height: 4px;
+  }
+}
 </style>

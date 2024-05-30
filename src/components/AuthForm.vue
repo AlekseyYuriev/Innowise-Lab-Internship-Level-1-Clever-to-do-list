@@ -113,7 +113,6 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
   margin: auto;
 }
 .auth__title {
@@ -187,31 +186,33 @@ export default {
 }
 @media screen and (max-width: 565px) {
   .auth {
-    max-width: 320px;
+    max-width: 300px;
     margin: 15px auto 0;
     min-height: 320px;
   }
   .auth__container {
     max-width: 280px;
+    padding: 0 20px;
   }
   .auth__title {
     margin: 20px 0 20px;
-    font-size: 24px;
+    font-size: 22px;
   }
   .auth__form {
     min-height: 180px;
   }
   .auth__input {
     height: 40px;
+    font-size: 14px;
   }
   .auth__button {
     margin: 10px 0 0;
     height: 40px;
-    font-size: 16px;
+    font-size: 14px;
   }
   .auth__subtitle {
     margin: 20px 0 20px;
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 </style>

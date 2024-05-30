@@ -183,7 +183,6 @@ export default {
 }
 .item__header:hover {
   margin: 0;
-  font-size: 32px;
   color: #fe8c2c;
   opacity: 0.7;
 }
@@ -238,7 +237,6 @@ export default {
 .item__buttons-task {
   width: 500px;
   display: flex;
-  justify-content: flex-start;
   justify-content: space-between;
 }
 .btn {
@@ -334,5 +332,70 @@ export default {
   background-size: cover;
   background-color: transparent;
   cursor: pointer;
+}
+@media screen and (max-width: 565px) {
+  .wrapper {
+    padding: 20px;
+    max-width: 300px;
+    margin: 15px auto 0;
+  }
+  .wrapper__item {
+    max-width: 280px;
+  }
+  .item {
+    padding-bottom: 10px;
+    max-width: 280px;
+  }
+  .item__header {
+    font-size: 20px;
+  }
+  .item__content {
+    max-width: 280px;
+    padding: 10px 0 0;
+  }
+  .item__lable {
+    font-size: 14px;
+  }
+  .item__input {
+    margin: 0 0 10px;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .item__input-title {
+    height: 30px;
+  }
+  .item__input-date {
+    height: 30px;
+  }
+  .item__buttons {
+    gap: 5px;
+    max-width: 280px;
+  }
+  .item__buttons-task {
+    width: 260px;
+    margin-top: 10px;
+  }
+  .btn {
+    max-width: 80px;
+    height: 40px;
+    gap: 5px;
+    font-size: 12px;
+  }
+  .btn-icon-update {
+    width: 15px;
+    height: 15px;
+  }
+  .btn-icon-delete {
+    width: 18px;
+    height: 18px;
+  }
+  .btn-icon-done {
+    width: 16px;
+    height: 16px;
+  }
+  .btn-icon-notdone {
+    width: 10px;
+    height: 10px;
+  }
 }
 </style>
