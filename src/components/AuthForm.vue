@@ -140,11 +140,15 @@ export default {
             this.$router.push('/')
           }
         } catch (err) {
-          console.log(err.code)
+          console.log(err.message)
           if (err.code === 'auth/invalid-credential') {
             this.error = 'Email or password is invalid'
           } else if (err.code === 'auth/email-already-in-use') {
             this.error = `User with email: ${this.email} already exists`
+          } else if (err.code === 'auth/network-request-failed') {
+            this.error = `No network connection`
+          } else {
+            this.error = `Unexpected error, please try again`
           }
         }
       } else {
