@@ -38,7 +38,7 @@
       <div class="item__buttons">
         <div class="item__buttons-task">
           <button
-            :disabled="handleUpdateTask"
+            :disabled="handleUpdateTask || validateInput"
             @click="updateTask"
             type="button"
             class="item__update-button btn"
@@ -92,7 +92,8 @@ export default {
       title: '',
       description: '',
       date: '',
-      isTaskUpdated: false
+      isTaskUpdated: false,
+      validInput: true
     }
   },
   methods: {
@@ -142,6 +143,9 @@ export default {
     },
     userId() {
       return this.$store.state.user.uid
+    },
+    validateInput() {
+      return this.title === '' ? this.validInput : !this.validInput
     }
   }
 }

@@ -140,9 +140,12 @@ export default {
             this.$router.push('/')
           }
         } catch (err) {
-          if (err.code === 'auth/invalid-credential')
-            console.log(typeof err.code)
-          this.error = 'Email or password is invalid'
+          console.log(err.code)
+          if (err.code === 'auth/invalid-credential') {
+            this.error = 'Email or password is invalid'
+          } else if (err.code === 'auth/email-already-in-use') {
+            this.error = `User with email: ${this.email} already exists`
+          }
         }
       } else {
         return
@@ -192,7 +195,7 @@ export default {
   height: 50px;
   width: 100%;
   margin: 0;
-  padding: 0 0 0 15px;
+  padding: 0 15px 0 15px;
   border: none;
   outline: 1px solid #d9d9d9;
   border-radius: 20px;
@@ -209,21 +212,21 @@ export default {
   margin: 0;
   color: rgb(237, 69, 69);
   height: 12px;
-  padding: 0 0 0 15px;
+  padding: 0 15px 0 15px;
   font-size: 12px;
 }
 .auth__form-error {
-  height: 15px;
-  width: 100%;
-  margin: 10px 0;
+  height: 40px;
+  margin: 5px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
   color: rgb(237, 69, 69);
-  font-size: 14px;
+  padding: 0 15px 0 15px;
 }
 .auth__form-error-text {
   margin: 0;
+  font-size: 12px;
 }
 .auth__button {
   margin: 0;
@@ -287,6 +290,7 @@ export default {
   }
   .auth__form-error {
     text-align: center;
+    font-size: 12px;
   }
   .auth__button {
     margin: 5px 0 0;
