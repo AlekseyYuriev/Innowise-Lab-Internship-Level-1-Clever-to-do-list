@@ -2,29 +2,53 @@
   <div class="auth">
     <div class="auth__container">
       <h1 class="auth__title">{{ title }}</h1>
-      <form @submit.prevent class="auth__form">
-        <label class="auth__lable">
-          <input
-            v-model="email"
-            type="email"
-            name="email"
-            class="auth__input"
-            placeholder="Your email address"
-            autocomplete="on"
-          />
-        </label>
-        <label class="auth__lable">
-          <input
-            v-model="password"
-            type="password"
-            name="email"
-            class="auth__input"
-            placeholder="Password"
-            autocomplete="on"
-          />
-        </label>
-        <p v-if="error">{{ error }}</p>
-        <button @click="handleSubmit" type="submit" class="auth__button">
+      <form @submit.prevent="handleSubmit" class="auth__form" novalidate>
+        <div class="auth__lable">
+          <label>
+            <input
+              v-model="email"
+              type="email"
+              name="email"
+              class="auth__input"
+              placeholder="Your email address"
+              autocomplete="on"
+            />
+          </label>
+          <div class="input__errors">
+            <p
+              v-for="err in v$.email.$errors"
+              :key="err.$uid"
+              class="auth__input-error"
+            >
+              {{ err.$message }}
+            </p>
+          </div>
+        </div>
+        <div class="auth__lable">
+          <label>
+            <input
+              v-model="password"
+              type="password"
+              name="password"
+              class="auth__input"
+              placeholder="Password"
+              autocomplete="on"
+            />
+          </label>
+          <div class="input__errors">
+            <p
+              v-for="err in v$.password.$errors"
+              :key="err.$uid"
+              class="auth__input-error"
+            >
+              {{ err.$message }}
+            </p>
+          </div>
+        </div>
+        <div class="auth__form-error">
+          <p v-if="error" class="auth__form-error-text">{{ error }}</p>
+        </div>
+        <button type="submit" class="auth__button">
           {{ buttonText }}
         </button>
       </form>
@@ -39,12 +63,36 @@
 </template>
 
 <script>
+import {
+  EMAIL_REQUIRED_FIELD,
+  EMAIL_TYPE_FIELD,
+  PASSWORD_MINLENGTH_FIELD,
+  PASSWORD_REQUIRED_FIELD
+} from '@/utils/constants'
+import useVuelidate from '@vuelidate/core'
+import { minLength, required, email, helpers } from '@vuelidate/validators'
+
 export default {
+  setup() {
+    return { v$: useVuelidate() }
+  },
   data() {
     return {
       email: '',
       password: '',
       error: null
+    }
+  },
+  validations() {
+    return {
+      email: {
+        required: helpers.withMessage(EMAIL_REQUIRED_FIELD, required),
+        email: helpers.withMessage(EMAIL_TYPE_FIELD, email)
+      },
+      password: {
+        required: helpers.withMessage(PASSWORD_REQUIRED_FIELD, required),
+        minLength: helpers.withMessage(PASSWORD_MINLENGTH_FIELD, minLength(6))
+      }
     }
   },
   props: {
@@ -75,22 +123,29 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      try {
-        if (this.$route.fullPath === '/signin') {
-          await this.$store.dispatch('login', {
-            email: this.email,
-            password: this.password
-          })
-          this.$router.push('/')
-        } else {
-          await this.$store.dispatch('register', {
-            email: this.email,
-            password: this.password
-          })
-          this.$router.push('/')
+      const isFormCorrect = await this.v$.$validate()
+      if (isFormCorrect) {
+        try {
+          if (this.$route.fullPath === '/signin') {
+            await this.$store.dispatch('login', {
+              email: this.email,
+              password: this.password
+            })
+            this.$router.push('/')
+          } else {
+            await this.$store.dispatch('register', {
+              email: this.email,
+              password: this.password
+            })
+            this.$router.push('/')
+          }
+        } catch (err) {
+          if (err.code === 'auth/invalid-credential')
+            console.log(typeof err.code)
+          this.error = 'Email or password is invalid'
         }
-      } catch (err) {
-        this.error = err.message
+      } else {
+        return
       }
     }
   }
@@ -146,8 +201,32 @@ export default {
 .auth__input::placeholder {
   color: #838383;
 }
+.input__errors {
+  height: 25px;
+  padding: 5px 0 0 0;
+}
+.auth__input-error {
+  margin: 0;
+  color: rgb(237, 69, 69);
+  height: 12px;
+  padding: 0 0 0 15px;
+  font-size: 12px;
+}
+.auth__form-error {
+  height: 15px;
+  width: 100%;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(237, 69, 69);
+  font-size: 14px;
+}
+.auth__form-error-text {
+  margin: 0;
+}
 .auth__button {
-  margin: 20px 0 0;
+  margin: 0;
   padding: 0;
   width: 100%;
   height: 50px;
@@ -195,24 +274,31 @@ export default {
     padding: 0 20px;
   }
   .auth__title {
-    margin: 20px 0 20px;
+    margin: 20px 0 30px;
     font-size: 22px;
+    padding-left: 15px;
   }
   .auth__form {
-    min-height: 180px;
+    min-height: 210px;
   }
   .auth__input {
     height: 40px;
     font-size: 14px;
   }
+  .auth__form-error {
+    text-align: center;
+  }
   .auth__button {
-    margin: 10px 0 0;
+    margin: 5px 0 0;
     height: 40px;
     font-size: 14px;
   }
   .auth__subtitle {
     margin: 20px 0 20px;
     font-size: 12px;
+  }
+  .input__errors {
+    height: 30px;
   }
 }
 </style>
