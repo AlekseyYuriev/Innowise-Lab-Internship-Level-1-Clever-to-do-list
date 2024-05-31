@@ -16,9 +16,6 @@ export default {
     authIsReady() {
       return this.$store.state.authIsReady
     }
-  },
-  async mounted() {
-    console.log(this.$store.state.user, this.$store.state.isLoggedIn)
   }
 }
 </script>

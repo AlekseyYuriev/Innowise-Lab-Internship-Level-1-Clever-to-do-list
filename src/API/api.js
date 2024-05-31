@@ -30,7 +30,7 @@ export const getTaskById = async (taskId, userId) => {
     }
     return task
   } else {
-    console.log('No such document!')
+    return
   }
 }
 
@@ -58,8 +58,7 @@ export const getAllTasks = async (userId) => {
 
 export const createTask = async (task, id) => {
   task.date = new Date(task.date)
-  const docRef = await addDoc(collection(db, 'users', id, 'todos'), task)
-  console.log('Document written with ID: ', docRef.id)
+  await addDoc(collection(db, 'users', id, 'todos'), task)
 }
 
 export const removeTask = async (task, id) => {

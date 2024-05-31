@@ -125,10 +125,14 @@ export default {
     }
   },
   async mounted() {
-    this.task = await getTaskById(this.id, this.userId)
-    this.title = this.task.title
-    this.description = this.task.description
-    this.date = this.task.date.split('-').reverse().join('-')
+    try {
+      this.task = await getTaskById(this.id, this.userId)
+      this.title = this.task.title
+      this.description = this.task.description
+      this.date = this.task.date.split('-').reverse().join('-')
+    } catch (error) {
+      this.$router.push('/')
+    }
   },
   computed: {
     handleUpdateTask() {
