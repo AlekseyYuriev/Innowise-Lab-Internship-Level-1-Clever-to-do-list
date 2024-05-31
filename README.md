@@ -13,4 +13,6 @@ https://drive.google.com/file/d/18I1PxOxZn2lwm__YeOtMNoWeiXygKwwN/view
 <h2>3. Database snapshot</h2>
 The entities structure in firebase is organized the following way:
 
-![alt text](image.png)
+<img width="600" src="./public/firebase1.png" alt="Структура данных Firebase">
+<img width="600" src="./public/firebase2.png" alt="Структура данных Firebase">
+<img width="600" src="./public/firebase3.png" alt="Структура данных Firebase">
