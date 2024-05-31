@@ -3,6 +3,8 @@ import App from './App.vue'
 import PageLoader from './components/PageLoader.vue'
 import router from './router'
 import store from './store'
+import './assets/normalize.css'
+import './assets/base.css'
 
 const app = createApp(App)
 

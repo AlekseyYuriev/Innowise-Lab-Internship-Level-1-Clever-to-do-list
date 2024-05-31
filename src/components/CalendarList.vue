@@ -139,7 +139,8 @@ export default {
   overflow-x: scroll;
   padding: 10px;
   scrollbar-width: thin;
-  scrollbar-color: #d9d9d9 #fff;
+  scrollbar-color: var(--color-calendar-scrollbar)
+    var(--color-calendar-scrollbar-background);
 }
 .calendar__item {
   display: flex;
@@ -155,7 +156,7 @@ export default {
   padding: 5px 0;
   border: none;
   border-radius: 16px;
-  background-color: #fff;
+  background-color: var(--color-calendar-item-background);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -163,34 +164,34 @@ export default {
   cursor: pointer;
 }
 .calendar__day {
-  color: #838383;
+  color: var(--color-calendar-day-text);
   margin: 0;
   transition: all 0.3s ease;
 }
 .calendar__date {
-  color: #000;
+  color: var(--color-calendar-date-text);
   margin: 0;
   transition: all 0.3s ease;
 }
 .calendar__button-active {
   outline: none;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--color-calendar-button-active);
+  color: var(--color-calendar-button-text-active);
   transition: all 0.5s ease;
 }
 .calendar__day-active {
-  color: #fff;
+  color: var(--color-calendar-button-text-active);
 }
 .calendar__button:hover {
-  outline: 1px solid #fe8c2c;
-  color: #fe8c2c;
+  outline: 1px solid var(--color-calendar-button-hover);
+  color: var(--color-calendar-button-hover);
 }
 .calendar__button:hover .calendar__day {
-  color: #fe8c2c;
+  color: var(--color-calendar-button-hover);
 }
 
 .calendar__button:hover .calendar__date {
-  color: #fe8c2c;
+  color: var(--color-calendar-button-hover);
 }
 .calendar__tasks {
   height: 5px;

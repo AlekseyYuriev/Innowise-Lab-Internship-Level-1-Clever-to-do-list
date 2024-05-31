@@ -123,7 +123,7 @@ export default {
   max-width: 762px;
   min-height: 400px;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--color-container-background);
   margin: 30px auto 0;
   border-radius: 16px;
   box-shadow: 0 20px 40px #525354;
@@ -144,7 +144,7 @@ export default {
 }
 .tasks__title {
   margin: 0;
-  color: #545454;
+  color: var(--color-text-main);
   font-size: 32px;
 }
 .tasks__container {
@@ -156,11 +156,11 @@ export default {
   align-items: flex-start;
 }
 .tasks__quantity {
-  color: #545454;
+  color: var(--color-text-main);
   margin-top: 30px;
 }
 .tasks__no-quantity {
-  color: #838383;
+  color: var(--color-text-main);
   margin-top: 30px;
 }
 .tasks__list {
@@ -182,10 +182,10 @@ export default {
   width: 100%;
   height: 50px;
   border: none;
-  outline: 1px solid #d9d9d9;
+  outline: 1px solid var(--color-container-background);
   border-radius: 20px;
-  background-color: #fe8c2c;
-  color: #fefbf8;
+  background-color: var(--color-button-background);
+  color: var(--color-button-text);
   cursor: pointer;
   transition:
     opacity 0.3s,

@@ -49,7 +49,7 @@ export default {
 <style scoped>
 .navbar {
   max-width: 762px;
-  background-color: #fff;
+  background-color: var(--color-container-background);
   width: 100%;
   margin: 0 auto;
   border-radius: 16px;
@@ -67,11 +67,11 @@ export default {
 .navbar__title {
   margin: 0;
   font-size: 24px;
-  color: #545454;
+  color: var(--color-text-main);
 }
 .navbar__subtitle {
   margin: 0;
-  color: #545454;
+  color: var(--color-text-main);
   font-weight: 500;
   font-size: 18px;
 }
@@ -82,11 +82,11 @@ export default {
 }
 .navbar__text {
   margin: 0;
-  color: #838383;
+  color: var(--color-text-main);
 }
 .navbar__email {
   margin: 0 0 0 5px;
-  color: #545454;
+  color: var(--color-text-main);
   font-weight: 600;
 }
 .navbar__button {
@@ -95,13 +95,13 @@ export default {
   width: 100px;
   height: 30px;
   border: none;
-  outline: 1px solid #d9d9d9;
+  outline: 1px solid var(--color-input-outline);
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fefbf8;
-  background-color: #fe8c2c;
+  color: var(--color-button-text);
+  background-color: var(--color-button-background);
   cursor: pointer;
   transition:
     opacity 0.3s,

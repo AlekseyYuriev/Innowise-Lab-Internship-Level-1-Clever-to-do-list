@@ -102,10 +102,11 @@ export default {
   margin-left: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: var(--color-task-item);
 }
 .task__title:not(:disabled):hover {
-  color: #fe8c2c;
-  opacity: 0.7;
+  color: #ffbf1a;
+  opacity: 0.9;
   transform: scale(103%);
 }
 @media screen and (max-width: 565px) {

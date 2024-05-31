@@ -24,7 +24,7 @@
         <label class="dialog__lable">
           <input
             v-model="task.date"
-            :style="{ color: activeColor ? '#545454' : '' }"
+            :style="{ color: activeColor ? 'var(--color-text-main)' : '' }"
             type="date"
             name="task-date"
             :min="currentDate"
@@ -120,7 +120,7 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(220, 220, 220, 0.5);
+  background: var(--color-add-dialog-background);
   backdrop-filter: blur(5px);
   position: fixed;
   display: flex;
@@ -128,12 +128,12 @@ export default {
 
 .dialog__content {
   margin: auto;
-  background: white;
+  background: var(--color-container-background);
   border-radius: 12px;
   min-height: 50px;
   min-width: 300px;
   padding: 20px;
-  outline: 1px solid #a8a9a9;
+  outline: 1px solid var(--color-input-outline);
 }
 .dialog__form {
   width: 100%;
@@ -153,9 +153,10 @@ export default {
   margin: 0 0 20px;
   padding: 0 0 0 15px;
   border: none;
-  outline: 1px solid #a8a9a9;
+  outline: 1px solid var(--color-input-outline);
   border-radius: 20px;
-  color: #545454;
+  color: var(--color-text-main);
+  background-color: var(--color-input-background);
 }
 .dialog__input-title {
   height: 50px;
@@ -164,11 +165,11 @@ export default {
   padding: 15px 0 0 15px;
 }
 .dialog__input::placeholder {
-  color: #838383;
+  color: var(--color-text-main);
 }
 .input__date {
   height: 50px;
-  color: #838383;
+  color: var(--color-text-main);
 }
 .input__date {
   position: relative;
@@ -195,10 +196,10 @@ export default {
   width: 100%;
   height: 50px;
   border: none;
-  outline: 1px solid #a8a9a9;
+  outline: 1px solid var(--color-input-outline);
   border-radius: 20px;
-  background-color: #fe8c2c;
-  color: #fefbf8;
+  background-color: var(--color-button-background);
+  color: var(--color-button-text);
   cursor: pointer;
   transition:
     opacity 0.3s,
@@ -213,7 +214,7 @@ export default {
 }
 .dialog__button:disabled {
   cursor: not-allowed;
-  background-color: #cbcbcb;
+  background-color: #aaaaaa;
 }
 @media screen and (max-width: 565px) {
   .dialog__content {

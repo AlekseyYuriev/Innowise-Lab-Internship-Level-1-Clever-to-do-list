@@ -24,25 +24,14 @@ export default {
 </script>
 
 <style>
-@import './assets/normalize.css';
-
 .page {
-  min-height: 100vh;
   min-width: 320px;
   margin: 0 auto;
-  padding: 20px 20px 0 20px;
-  background-color: #e8e8ea;
-  font-family: 'Inter', Helvetica, Arial, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
+  padding: 20px;
 }
 @media screen and (max-width: 565px) {
   .page {
-    padding: 15px 0 0 0;
+    padding: 15px;
   }
 }
 </style>

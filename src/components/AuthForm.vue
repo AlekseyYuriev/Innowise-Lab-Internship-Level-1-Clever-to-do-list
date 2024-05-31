@@ -66,8 +66,11 @@
 import {
   EMAIL_REQUIRED_FIELD,
   EMAIL_TYPE_FIELD,
+  INVALID_CREDENTIALS,
+  NO_NETWORK_CONNECTION,
   PASSWORD_MINLENGTH_FIELD,
-  PASSWORD_REQUIRED_FIELD
+  PASSWORD_REQUIRED_FIELD,
+  UNEXPECTED_ERROR
 } from '@/utils/constants'
 import useVuelidate from '@vuelidate/core'
 import { minLength, required, email, helpers } from '@vuelidate/validators'
@@ -142,13 +145,13 @@ export default {
         } catch (err) {
           console.log(err.message)
           if (err.code === 'auth/invalid-credential') {
-            this.error = 'Email or password is invalid'
+            this.error = INVALID_CREDENTIALS
           } else if (err.code === 'auth/email-already-in-use') {
             this.error = `User with email: ${this.email} already exists`
           } else if (err.code === 'auth/network-request-failed') {
-            this.error = `No network connection`
+            this.error = NO_NETWORK_CONNECTION
           } else {
-            this.error = `Unexpected error, please try again`
+            this.error = UNEXPECTED_ERROR
           }
         }
       } else {
@@ -164,7 +167,7 @@ export default {
   max-width: 762px;
   min-height: 400px;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--color-container-background);
   margin: 30px auto 0;
   border-radius: 16px;
   box-shadow: 0 20px 40px #525354;
@@ -179,7 +182,7 @@ export default {
 }
 .auth__title {
   margin: 50px 0 50px;
-  color: #545454;
+  color: var(--color-text-main);
 }
 .auth__form {
   width: 100%;
@@ -201,15 +204,17 @@ export default {
   margin: 0;
   padding: 0 15px 0 15px;
   border: none;
-  outline: 1px solid #d9d9d9;
+  font-weight: 600;
+  outline: 1px solid var(--color-input-outline);
   border-radius: 20px;
-  color: #838383;
+  color: var(--color-text-main);
+  background-color: var(--color-input-background);
 }
 .auth__input::placeholder {
-  color: #838383;
+  color: var(--color-text-main);
 }
 .input__errors {
-  height: 25px;
+  height: 35px;
   padding: 5px 0 0 0;
 }
 .auth__input-error {
@@ -238,10 +243,10 @@ export default {
   width: 100%;
   height: 50px;
   border: none;
-  outline: 1px solid #d9d9d9;
+  outline: 1px solid var(--color-input-outline);
   border-radius: 20px;
-  background-color: #fe8c2c;
-  color: #fefbf8;
+  background-color: var(--color-button-background);
+  color: var(--color-button-text);
   cursor: pointer;
   transition:
     opacity 0.3s,
@@ -261,7 +266,7 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 15px;
-  color: #545454;
+  color: var(--color-text-main);
 }
 .auth__link {
   display: flex;

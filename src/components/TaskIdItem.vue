@@ -157,7 +157,7 @@ export default {
   max-width: 762px;
   min-height: 400px;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--color-container-background);
   margin: 30px auto 0;
   border-radius: 16px;
   box-shadow: 0 20px 40px #525354;
@@ -172,7 +172,7 @@ export default {
   width: 100%;
 }
 .item {
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--color-border-bottom);
   padding-bottom: 20px;
   max-width: 500px;
 }
@@ -181,13 +181,13 @@ export default {
   width: fit-content;
   padding: 3px 10px 3px 3px;
   font-size: 32px;
-  color: #545454;
+  color: var(--color-text-main);
   cursor: pointer;
   transition: all 0.5s ease;
 }
 .item__header:hover {
   margin: 0;
-  color: #fe8c2c;
+  color: var(--color-calendar-button-hover);
   opacity: 0.7;
 }
 .item__content {
@@ -198,6 +198,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  color: var(--color-text-main);
   gap: 15px;
 }
 .item__input {
@@ -206,9 +207,10 @@ export default {
   margin: 0 0 20px;
   padding: 15px;
   border: none;
-  outline: 1px solid #a8a9a9;
+  outline: 1px solid var(--color-input-outline);
   border-radius: 20px;
-  color: #545454;
+  color: var(--color-text-main);
+  background-color: var(--color-input-background);
 }
 .item__input-title {
   height: 35px;
@@ -249,13 +251,13 @@ export default {
   width: 100%;
   height: 50px;
   border: none;
-  outline: 1px solid #d9d9d9;
+  outline: 1px solid var(--color-button-outline);
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: #fefbf8;
+  color: var(--color-button-text);
   cursor: pointer;
   transition:
     opacity 0.3s,
