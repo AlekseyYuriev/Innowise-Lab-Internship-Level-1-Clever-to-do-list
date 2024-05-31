@@ -6,7 +6,7 @@ https://drive.google.com/file/d/18I1PxOxZn2lwm__YeOtMNoWeiXygKwwN/view
 
 <h2>2. How to run the app</h2>
 
-- `https://github.com/AlekseyYuriev/innowise-lab-internship-level-1-clever-to-do-list.git` - clone the repository (HTTPS)
+- `git clone https://github.com/AlekseyYuriev/innowise-lab-internship-level-1-clever-to-do-list.git` - clone the repository (HTTPS)
 - `npm install` - install the dependencies
 - `npm run dev` - run the app
 
@@ -24,11 +24,11 @@ The App is a Vue 3 based application. It was created using options API. The App 
 - Vue Router for routing
 - Vuex - official state management library
 - Vuelidate for form validation
-- Firebase - as a set of backend cloud computing services and application development platforms
+- Firebase - as a backend of the app
 
 The App has the following file structure:
 
-1. In the <strong>root</strong> folder you can find files that are used to configure and develop the app and index.html file.
+1. In the <strong>root</strong> folder you can find files that are used to configure and develop the app and <strong>index.html</strong> file.
    <br>
 2. <strong>src</strong> folder contains the files of the app including <strong>main.js, App.vue</strong> and several folders:
 
