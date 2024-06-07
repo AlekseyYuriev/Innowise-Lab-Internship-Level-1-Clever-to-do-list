@@ -1,10 +1,6 @@
 import { auth } from '@/firebase'
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from 'firebase/auth'
+import { createUser, login, logout } from '@/services/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 import { createStore } from 'vuex'
 
 const store = createStore({
@@ -31,15 +27,17 @@ const store = createStore({
   },
   actions: {
     async register(context, { email, password }) {
-      const res = await createUserWithEmailAndPassword(auth, email, password)
+      const res = await createUser(email, password)
       if (res) {
+        console.log(res)
         context.commit('setUser', res.user)
       } else {
+        console.log('Error')
         throw new Error('could not complete register')
       }
     },
     async login(context, { email, password }) {
-      const res = await signInWithEmailAndPassword(auth, email, password)
+      const res = await login(email, password)
       if (res) {
         context.commit('setUser', res.user)
       } else {
@@ -47,8 +45,12 @@ const store = createStore({
       }
     },
     async logout(context) {
-      await signOut(auth)
-      context.commit('setUser', null)
+      try {
+        await logout()
+        context.commit('setUser', null)
+      } catch (error) {
+        throw new Error('could not complete logout')
+      }
     },
     changeCurrentDate(context, date) {
       context.commit('setCurrentDate', date)

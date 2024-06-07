@@ -44,7 +44,7 @@ import {
   changeTaskStatusToNotDone,
   createTask,
   getAllTasks
-} from '@/API/api'
+} from '../services/tasks.js'
 import AddTaskDialog from '../components/AddTaskDialog.vue'
 import TaskItem from '../components/TaskItem.vue'
 import CalendarList from '../components/CalendarList.vue'

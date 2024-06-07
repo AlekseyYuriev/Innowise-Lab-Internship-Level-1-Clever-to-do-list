@@ -145,12 +145,11 @@ export default {
             this.$router.push('/')
           }
         } catch (err) {
-          console.log(err.message)
-          if (err.code === 'auth/invalid-credential') {
+          if (err.message === 'auth/invalid-credential') {
             this.error = INVALID_CREDENTIALS
-          } else if (err.code === 'auth/email-already-in-use') {
+          } else if (err.message === 'auth/email-already-in-use') {
             this.error = `User with email: ${this.email} already exists`
-          } else if (err.code === 'auth/network-request-failed') {
+          } else if (err.message === 'auth/network-request-failed') {
             this.error = NO_NETWORK_CONNECTION
           } else {
             this.error = UNEXPECTED_ERROR

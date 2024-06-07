@@ -76,14 +76,14 @@
 </template>
 
 <script>
-import {
-  changeTaskStatusToDone,
-  changeTaskStatusToNotDone,
-  getTaskById,
-  removeTask,
-  updateTask
-} from '@/API/api'
 import { mapGetters } from 'vuex'
+import {
+  removeTask,
+  changeTaskStatusToDone,
+  getTaskById,
+  changeTaskStatusToNotDone,
+  updateTask
+} from '../services/tasks.js'
 
 export default {
   data() {
