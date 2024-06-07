@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import {
   EMAIL_REQUIRED_FIELD,
   EMAIL_TYPE_FIELD,
@@ -125,18 +126,19 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['login', 'register']),
     async handleSubmit() {
       const isFormCorrect = await this.v$.$validate()
       if (isFormCorrect) {
         try {
           if (this.$route.fullPath === '/signin') {
-            await this.$store.dispatch('login', {
+            await this.login({
               email: this.email,
               password: this.password
             })
             this.$router.push('/')
           } else {
-            await this.$store.dispatch('register', {
+            await this.register({
               email: this.email,
               password: this.password
             })

@@ -48,7 +48,7 @@ import {
 import AddTaskDialog from '../components/AddTaskDialog.vue'
 import TaskItem from '../components/TaskItem.vue'
 import CalendarList from '../components/CalendarList.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -65,6 +65,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['changeCurrentDate']),
     async addTask(task) {
       await createTask(task, this.user.uid)
       this.dialogVisible = false
@@ -86,7 +87,7 @@ export default {
     },
     changeCurrentDay(day) {
       this.currentDayTask(day)
-      this.$store.dispatch('changeCurrentDate', day)
+      this.changeCurrentDate(day)
     }
   },
   computed: {

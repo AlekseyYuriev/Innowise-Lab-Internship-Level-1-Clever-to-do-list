@@ -42,7 +42,7 @@
 
 <script>
 import { NUMBER_OF_DAYS, ONE_DAY } from '@/utils/constants'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
@@ -58,6 +58,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['changeCurrentDate']),
     nextDate(n) {
       return this.initialDate.getTime() + ONE_DAY * n
     },
@@ -79,7 +80,7 @@ export default {
       return dayOfWeek.slice(0, 3)
     },
     chooseDate(day) {
-      this.$store.dispatch('changeCurrentDate', day)
+      this.changeCurrentDate(day)
       this.$emit('chooseDate', day)
     },
     activeDate(day) {
