@@ -83,6 +83,7 @@ import {
   removeTask,
   updateTask
 } from '@/API/api'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -98,17 +99,17 @@ export default {
   },
   methods: {
     async removeTask() {
-      await removeTask(this.task, this.userId)
+      await removeTask(this.task, this.user.uid)
       this.$router.push('/')
     },
     async changeTaskStatusToDone() {
-      await changeTaskStatusToDone(this.task.id, this.userId)
-      this.task = await getTaskById(this.task.id, this.userId)
+      await changeTaskStatusToDone(this.task.id, this.user.uid)
+      this.task = await getTaskById(this.task.id, this.user.uid)
       this.$router.push('/')
     },
     async changeTaskStatusToNotDone() {
-      await changeTaskStatusToNotDone(this.task.id, this.userId)
-      this.task = await getTaskById(this.task.id, this.userId)
+      await changeTaskStatusToNotDone(this.task.id, this.user.uid)
+      this.task = await getTaskById(this.task.id, this.user.uid)
     },
     async updateTask() {
       const updatedTask = {
@@ -117,8 +118,8 @@ export default {
         description: this.description,
         date: this.date
       }
-      await updateTask(updatedTask, this.userId)
-      this.task = await getTaskById(this.task.id, this.userId)
+      await updateTask(updatedTask, this.user.uid)
+      this.task = await getTaskById(this.task.id, this.user.uid)
     },
     goBack() {
       this.$router.go(-1)
@@ -126,7 +127,7 @@ export default {
   },
   async mounted() {
     try {
-      this.task = await getTaskById(this.id, this.userId)
+      this.task = await getTaskById(this.id, this.user.uid)
       this.title = this.task.title
       this.description = this.task.description
       this.date = this.task.date.split('-').reverse().join('-')
@@ -135,6 +136,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['user']),
     handleUpdateTask() {
       if (
         this.title !== this.task.title ||
@@ -144,9 +146,6 @@ export default {
         return this.isTaskUpdated
       }
       return !this.isTaskUpdated
-    },
-    userId() {
-      return this.$store.state.user.uid
     },
     validateInput() {
       return this.title === '' ? this.validInput : !this.validInput

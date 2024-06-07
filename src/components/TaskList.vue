@@ -48,6 +48,7 @@ import {
 import AddTaskDialog from '../components/AddTaskDialog.vue'
 import TaskItem from '../components/TaskItem.vue'
 import CalendarList from '../components/CalendarList.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -65,20 +66,20 @@ export default {
   },
   methods: {
     async addTask(task) {
-      await createTask(task, this.userId)
+      await createTask(task, this.user.uid)
       this.dialogVisible = false
-      this.tasks = await getAllTasks(this.userId)
+      this.tasks = await getAllTasks(this.user.uid)
     },
     showDialog() {
       this.dialogVisible = true
     },
     async changeStatus(task, status) {
       if (status === false) {
-        await changeTaskStatusToNotDone(task.id, this.userId)
+        await changeTaskStatusToNotDone(task.id, this.user.uid)
       } else {
-        await changeTaskStatusToDone(task.id, this.userId)
+        await changeTaskStatusToDone(task.id, this.user.uid)
       }
-      this.tasks = await getAllTasks(this.userId)
+      this.tasks = await getAllTasks(this.user.uid)
     },
     currentDayTask(date) {
       this.filteredTasks = this.tasks.filter((task) => task.date === date)
@@ -89,21 +90,16 @@ export default {
     }
   },
   computed: {
-    userId() {
-      return this.$store.state.user.uid
-    },
+    ...mapGetters(['user', 'currentDate']),
     taskText() {
       if (this.filteredTasks.length === 1) {
         return 'Task'
       }
       return 'Tasks'
-    },
-    currentDate() {
-      return this.$store.state.currentDate
     }
   },
   async mounted() {
-    this.tasks = await getAllTasks(this.userId)
+    this.tasks = await getAllTasks(this.user.uid)
     this.filteredTasks = this.tasks.filter(
       (task) => task.date === this.currentDate
     )

@@ -53,6 +53,17 @@ const store = createStore({
     changeCurrentDate(context, date) {
       context.commit('setCurrentDate', date)
     }
+  },
+  getters: {
+    currentDate(state) {
+      return state.currentDate
+    },
+    user(state) {
+      return state.user
+    },
+    authIsReady(state) {
+      return state.authIsReady
+    }
   }
 })
 

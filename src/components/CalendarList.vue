@@ -42,6 +42,7 @@
 
 <script>
 import { NUMBER_OF_DAYS, ONE_DAY } from '@/utils/constants'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -82,7 +83,7 @@ export default {
       this.$emit('chooseDate', day)
     },
     activeDate(day) {
-      if (this.dateInFocus === this.formatNextDate(day)) {
+      if (this.currentDate === this.formatNextDate(day)) {
         return true
       }
       return false
@@ -123,9 +124,7 @@ export default {
   },
   emits: ['chooseDate'],
   computed: {
-    dateInFocus() {
-      return this.$store.state.currentDate
-    }
+    ...mapGetters(['currentDate'])
   }
 }
 </script>

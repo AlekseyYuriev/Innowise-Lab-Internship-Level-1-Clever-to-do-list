@@ -3,15 +3,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import TaskList from '@/components/TaskList.vue'
 export default {
   components: {
     TaskList
   },
   computed: {
-    authIsReady() {
-      return this.$store.state.authIsReady
-    }
+    ...mapGetters(['authIsReady'])
   }
 }
 </script>

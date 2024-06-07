@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   methods: {
     async handleLogout() {
@@ -36,12 +38,7 @@ export default {
     }
   },
   computed: {
-    authIsReady() {
-      return this.$store.state.authIsReady
-    },
-    user() {
-      return this.$store.state.user
-    }
+    ...mapGetters(['authIsReady', 'user'])
   }
 }
 </script>

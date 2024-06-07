@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import NavbarMenu from './components/NavbarMenu.vue'
 export default {
   components: { NavbarMenu },
@@ -13,9 +14,7 @@ export default {
     return {}
   },
   computed: {
-    authIsReady() {
-      return this.$store.state.authIsReady
-    }
+    ...mapGetters(['authIsReady'])
   }
 }
 </script>

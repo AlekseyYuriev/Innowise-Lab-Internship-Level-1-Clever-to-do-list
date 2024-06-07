@@ -32,11 +32,6 @@ export default {
       }
     }
   },
-  computed: {
-    userId() {
-      return this.$store.state.user.uid
-    }
-  },
   emits: ['changeTaskStatus']
 }
 </script>
