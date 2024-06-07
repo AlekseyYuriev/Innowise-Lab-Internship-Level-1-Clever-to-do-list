@@ -72,7 +72,7 @@ import {
   PASSWORD_MINLENGTH_FIELD,
   PASSWORD_REQUIRED_FIELD,
   UNEXPECTED_ERROR
-} from '@/utils/constants'
+} from '../constants/errorMessage.js'
 import useVuelidate from '@vuelidate/core'
 import { minLength, required, email, helpers } from '@vuelidate/validators'
 

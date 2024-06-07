@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { NUMBER_OF_DAYS, ONE_DAY } from '@/utils/constants'
+import { NUMBER_OF_DAYS, ONE_DAY } from '../constants/calendarDay.js'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
