@@ -20,9 +20,8 @@
   --background-calendar-item-color-dark: #feae6b;
   --text-calendar-day-color-lite: #838383;
   --border-bottom-color-lite: #dcdcdc;
-}
 
-:root {
+  /* color theme */
   --color-body-background: var(--body-color-light);
   --color-container-background: var(--white);
   --color-add-dialog-background: var(--background-add-dialog-color-lite);

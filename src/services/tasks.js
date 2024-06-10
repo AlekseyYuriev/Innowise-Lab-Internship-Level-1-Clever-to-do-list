@@ -57,8 +57,12 @@ export const getAllTasks = async (userId) => {
 }
 
 export const createTask = async (task, id) => {
-  task.date = new Date(task.date)
-  await addDoc(collection(db, 'users', id, 'todos'), task)
+  await addDoc(collection(db, 'users', id, 'todos'), {
+    title: task.title,
+    description: task.description,
+    date: new Date(task.date),
+    done: task.done
+  })
 }
 
 export const removeTask = async (task, id) => {

@@ -38,6 +38,7 @@ export default {
       this.$router.push('/signin')
     }
   },
+
   computed: {
     ...mapGetters(['authIsReady', 'user'])
   }
@@ -79,11 +80,11 @@ export default {
   gap: 30px;
 }
 .navbar__text {
-  margin: 0;
+  margin: 0 0 0 15px;
   color: var(--color-text-main);
 }
 .navbar__email {
-  margin: 0 0 0 5px;
+  margin: 0;
   color: var(--color-text-main);
   font-weight: 600;
 }
@@ -160,12 +161,13 @@ export default {
     font-size: 14px;
   }
   .navbar__wapper {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 5px;
   }
   .navbar__text {
     font-size: 14px;
+    margin: 0;
   }
   .navbar__email {
     margin: 0;

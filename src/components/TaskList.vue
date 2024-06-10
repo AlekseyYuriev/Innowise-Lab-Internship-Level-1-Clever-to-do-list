@@ -33,7 +33,6 @@
         + Add a New Task
       </button>
     </div>
-
     <AddTaskDialog @create="addTask" v-model:show="dialogVisible" />
   </div>
 </template>
@@ -56,6 +55,7 @@ export default {
     TaskItem,
     CalendarList
   },
+
   data() {
     return {
       tasks: null,
@@ -64,16 +64,20 @@ export default {
       checkboxStatus: false
     }
   },
+
   methods: {
     ...mapActions(['changeCurrentDate']),
+
     async addTask(task) {
       await createTask(task, this.user.uid)
-      this.dialogVisible = false
       this.tasks = await getAllTasks(this.user.uid)
+      this.dialogVisible = false
     },
+
     showDialog() {
       this.dialogVisible = true
     },
+
     async changeStatus(task, status) {
       if (status === false) {
         await changeTaskStatusToNotDone(task.id, this.user.uid)
@@ -82,16 +86,20 @@ export default {
       }
       this.tasks = await getAllTasks(this.user.uid)
     },
+
     currentDayTask(date) {
       this.filteredTasks = this.tasks.filter((task) => task.date === date)
     },
+
     changeCurrentDay(day) {
       this.currentDayTask(day)
       this.changeCurrentDate(day)
     }
   },
+
   computed: {
     ...mapGetters(['user', 'currentDate']),
+
     taskText() {
       if (this.filteredTasks.length === 1) {
         return 'Task'
@@ -99,12 +107,14 @@ export default {
       return 'Tasks'
     }
   },
+
   async mounted() {
     this.tasks = await getAllTasks(this.user.uid)
     this.filteredTasks = this.tasks.filter(
       (task) => task.date === this.currentDate
     )
   },
+
   watch: {
     tasks(newTasks) {
       this.filteredTasks = newTasks.filter(

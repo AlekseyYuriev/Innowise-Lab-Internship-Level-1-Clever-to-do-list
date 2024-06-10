@@ -51,17 +51,21 @@ export default {
       required: true
     }
   },
+
   data() {
     return {
       daysToRender: NUMBER_OF_DAYS,
       initialDate: new Date()
     }
   },
+
   methods: {
     ...mapActions(['changeCurrentDate']),
+
     nextDate(n) {
       return this.initialDate.getTime() + ONE_DAY * n
     },
+
     formatNextDate(n) {
       const day = new Date(this.nextDate(n))
         .toISOString()
@@ -71,6 +75,7 @@ export default {
         .join('-')
       return day
     },
+
     dayOfWeek(n) {
       const options = { weekday: 'long' }
       const dayOfWeek = new Date(this.nextDate(n)).toLocaleString(
@@ -79,16 +84,19 @@ export default {
       )
       return dayOfWeek.slice(0, 3)
     },
+
     chooseDate(day) {
       this.changeCurrentDate(day)
       this.$emit('chooseDate', day)
     },
+
     activeDate(day) {
       if (this.currentDate === this.formatNextDate(day)) {
         return true
       }
       return false
     },
+
     tasksToDoAtThisDate(day) {
       const tasksAtThisDate = this.tasks.filter((task) => task.date === day)
       if (tasksAtThisDate.filter((task) => task.done === false).length > 0) {
@@ -96,6 +104,7 @@ export default {
       }
       return false
     },
+
     doneTasksAtThisDate(day) {
       const tasksAtThisDate = this.tasks.filter((task) => task.date === day)
       if (tasksAtThisDate.filter((task) => task.done === true).length > 0) {
@@ -104,6 +113,7 @@ export default {
       return false
     }
   },
+
   mounted() {
     const options = {
       root: document.querySelector('.calendar'),
@@ -123,7 +133,11 @@ export default {
     const observer = new IntersectionObserver(callback, options)
     observer.observe(this.$refs.observer)
   },
-  emits: ['chooseDate'],
+
+  emits: {
+    chooseDate: null
+  },
+
   computed: {
     ...mapGetters(['currentDate'])
   }

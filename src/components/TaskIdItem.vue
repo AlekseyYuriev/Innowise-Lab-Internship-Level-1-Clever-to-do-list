@@ -97,20 +97,24 @@ export default {
       validInput: true
     }
   },
+
   methods: {
     async removeTask() {
       await removeTask(this.task, this.user.uid)
       this.$router.push('/')
     },
+
     async changeTaskStatusToDone() {
       await changeTaskStatusToDone(this.task.id, this.user.uid)
       this.task = await getTaskById(this.task.id, this.user.uid)
       this.$router.push('/')
     },
+
     async changeTaskStatusToNotDone() {
       await changeTaskStatusToNotDone(this.task.id, this.user.uid)
       this.task = await getTaskById(this.task.id, this.user.uid)
     },
+
     async updateTask() {
       const updatedTask = {
         id: this.task.id,
@@ -121,10 +125,12 @@ export default {
       await updateTask(updatedTask, this.user.uid)
       this.task = await getTaskById(this.task.id, this.user.uid)
     },
+
     goBack() {
       this.$router.go(-1)
     }
   },
+
   async mounted() {
     try {
       this.task = await getTaskById(this.id, this.user.uid)
@@ -135,8 +141,10 @@ export default {
       this.$router.push('/')
     }
   },
+
   computed: {
     ...mapGetters(['user']),
+
     handleUpdateTask() {
       if (
         this.title !== this.task.title ||
@@ -147,6 +155,7 @@ export default {
       }
       return !this.isTaskUpdated
     },
+
     validateInput() {
       return this.title === '' ? this.validInput : !this.validInput
     }

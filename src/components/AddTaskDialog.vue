@@ -48,6 +48,7 @@ export default {
       default: false
     }
   },
+
   data() {
     return {
       task: {
@@ -61,6 +62,7 @@ export default {
       currentDate: new Date().toISOString().split('T')[0]
     }
   },
+
   computed: {
     validateInput() {
       return this.task.title === '' || this.task.description === ''
@@ -68,17 +70,12 @@ export default {
         : !this.validInput
     }
   },
+
   methods: {
     addTask() {
       this.$emit('create', this.task)
-      this.task = {
-        title: '',
-        description: '',
-        date: new Date().toISOString().split('T')[0],
-        done: false
-      }
-      this.activeColor = false
     },
+
     hideDialog() {
       this.$emit('update:show', false)
       this.task = {
@@ -89,12 +86,14 @@ export default {
       }
       this.activeColor = false
     },
+
     hideDialogOnButton(evt) {
       if (evt.key === 'Escape') {
         this.hideDialog()
       }
     }
   },
+
   watch: {
     task: {
       handler(newValue) {
@@ -103,11 +102,28 @@ export default {
         }
       },
       deep: true
+    },
+
+    show() {
+      this.task = {
+        title: '',
+        description: '',
+        date: new Date().toISOString().split('T')[0],
+        done: false
+      }
+      this.activeColor = false
     }
   },
+
+  emits: {
+    create: null,
+    'update:show': null
+  },
+
   mounted() {
     document.addEventListener('keyup', this.hideDialogOnButton)
   },
+
   beforeUnmount() {
     document.removeEventListener('keyup', this.hideDialogOnButton)
   }
@@ -165,11 +181,11 @@ export default {
   padding: 15px 0 0 15px;
 }
 .dialog__input::placeholder {
-  color: var(--color-text-main);
+  color: var(--color-input-outline);
 }
 .input__date {
   height: 50px;
-  color: var(--color-text-main);
+  color: var(--color-input-outline);
 }
 .input__date {
   position: relative;

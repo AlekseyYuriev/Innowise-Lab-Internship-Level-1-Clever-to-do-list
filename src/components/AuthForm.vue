@@ -80,6 +80,7 @@ export default {
   setup() {
     return { v$: useVuelidate() }
   },
+
   data() {
     return {
       email: '',
@@ -87,6 +88,7 @@ export default {
       error: null
     }
   },
+
   validations() {
     return {
       email: {
@@ -99,24 +101,29 @@ export default {
       }
     }
   },
+
   props: {
     title: {
       type: String,
       required: true
     },
+
     buttonText: {
       type: String,
       required: true
     },
+
     subtitleText: {
       type: String,
       required: true
     },
+
     linkText: {
       type: String,
       required: true
     }
   },
+
   computed: {
     handleRoute() {
       if (this.$route.fullPath === '/signin') {
@@ -125,8 +132,10 @@ export default {
       return '/signin'
     }
   },
+
   methods: {
     ...mapActions(['login', 'register']),
+
     async handleSubmit() {
       const isFormCorrect = await this.v$.$validate()
       if (isFormCorrect) {

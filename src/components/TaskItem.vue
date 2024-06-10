@@ -23,6 +23,7 @@ export default {
       required: true
     }
   },
+
   methods: {
     async changeTaskStatus() {
       if (this.task.done === true) {
@@ -32,7 +33,10 @@ export default {
       }
     }
   },
-  emits: ['changeTaskStatus']
+
+  emits: {
+    changeTaskStatus: null
+  }
 }
 </script>
 
