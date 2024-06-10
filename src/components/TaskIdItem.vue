@@ -48,7 +48,7 @@
           <button
             type="button"
             class="item__delete-button btn"
-            @click="removeTask"
+            @click="showConfirmationDialog"
           >
             Delete <span class="btn-icon-delete"></span>
           </button>
@@ -73,6 +73,12 @@
     </div>
     <page-loader v-else class="loader"></page-loader>
   </div>
+  <confirmation-dialog
+    v-if="confirm"
+    @hideDialog="hideConfirmationDialog"
+    @removeTask="removeTask"
+    :isLoading="isLoading"
+  />
 </template>
 
 <script>
@@ -84,8 +90,13 @@ import {
   changeTaskStatusToNotDone,
   updateTask
 } from '../services/tasks.js'
+import ConfirmationDialog from '../components/ConfirmationDialog.vue'
 
 export default {
+  components: {
+    ConfirmationDialog
+  },
+
   data() {
     return {
       id: this.$route.params['id'],
@@ -94,13 +105,26 @@ export default {
       description: '',
       date: '',
       isTaskUpdated: false,
-      validInput: true
+      validInput: true,
+      confirm: false,
+      isLoading: false
     }
   },
 
   methods: {
+    showConfirmationDialog() {
+      this.confirm = true
+    },
+
+    hideConfirmationDialog() {
+      this.confirm = false
+    },
+
     async removeTask() {
+      this.isLoading = true
       await removeTask(this.task, this.user.uid)
+      this.isLoading = false
+      this.hideConfirmationDialog()
       this.$router.push('/')
     },
 

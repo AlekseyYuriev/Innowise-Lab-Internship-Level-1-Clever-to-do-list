@@ -32,7 +32,11 @@
             class="dialog__input input__date"
           />
         </label>
-        <button :disabled="validateInput" type="submit" class="dialog__button">
+        <button
+          :disabled="validateInput || isLoading"
+          type="submit"
+          class="dialog__button"
+        >
           + Add a New Task
         </button>
       </form>
@@ -59,7 +63,8 @@ export default {
       },
       validInput: true,
       activeColor: false,
-      currentDate: new Date().toISOString().split('T')[0]
+      currentDate: new Date().toISOString().split('T')[0],
+      isLoading: false
     }
   },
 
@@ -73,6 +78,7 @@ export default {
 
   methods: {
     addTask() {
+      this.isLoading = true
       this.$emit('create', this.task)
     },
 
@@ -112,6 +118,7 @@ export default {
         done: false
       }
       this.activeColor = false
+      this.isLoading = false
     }
   },
 
