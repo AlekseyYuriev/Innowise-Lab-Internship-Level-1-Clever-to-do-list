@@ -17,10 +17,8 @@ export default {
     async register(context, { email, password }) {
       const res = await createUser(email, password)
       if (res) {
-        console.log(res)
         context.commit('setUser', res.user)
       } else {
-        console.log('Error')
         throw new Error('could not complete register')
       }
     },
