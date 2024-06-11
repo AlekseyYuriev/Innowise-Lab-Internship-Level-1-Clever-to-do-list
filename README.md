@@ -40,3 +40,7 @@ The App has the following file structure:
 - `store` - folder with Vuex configuration file
 - `utils` - folder with constants file
 - `views` - folder with pages of the App
+
+<h2>5. Link to the deployed app</h2>
+
+https://clever-to-do-list-15684.web.app
